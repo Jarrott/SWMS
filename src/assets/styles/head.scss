@@ -1,0 +1,69 @@
+.card {
+  background: linear-gradient(180deg, #5073f7 0%, #2e52db 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 99;
+  padding: 20px 0 14px 0;
+  margin-bottom: 20px;
+  transform: matrix(1, 0, 0, 1, 0, 0);
+  .icon-top {
+    &::after {
+      content: '';
+      background-image: url(@/assets/images/left-bg.png);
+      background-repeat: no-repeat;
+      background-size: cover;
+      opacity: 0.2;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 80%;
+    }
+  }
+  .icon-bottom {
+    &::after {
+      content: '';
+      background-image: url(@/assets/images/right-bg.png);
+      // background-size: 100%;
+      background-repeat: no-repeat;
+      background-size: cover;
+      opacity: 0.2;
+      position: absolute;
+      top: 0;
+      left: 80%;
+      bottom: 0;
+      right: 0;
+      z-index: -1;
+    }
+  }
+}
+.com-head-wrap1 {
+  .card-data {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    color: #ffff;
+    align-items: center;
+    .card-item {
+      text-align: center;
+      .iconfont {
+        font-size: 36px;
+        line-height: 36px;
+      }
+      .title {
+        font-size: 13px;
+        font-weight: 700;
+        line-height: 20px;
+        margin-top: 2px;
+      }
+      .card-value {
+        font-size: 13px;
+        font-weight: 500;
+        line-height: 22px;
+        margin-top: 2px;
+      }
+    }
+  }
+}
