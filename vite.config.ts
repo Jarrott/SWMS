@@ -4,7 +4,8 @@ import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import VueSetupExtend from 'vite-plugin-vue-setup-extend';
-import inject from '@rollup/plugin-inject'
+import inject from '@rollup/plugin-inject';
+import postcssPxtoRem from 'postcss-pxtorem'
 
 // @ts-ignore
 import { resolve } from 'path';
@@ -28,6 +29,20 @@ export default defineConfig({
         additionalData: `@use "@/assets/styles/element.scss" as *;`,
       },
     },
+    postcss: {
+      plugins: [
+        postcssPxtoRem({
+          rootValue: 192, // 按照自己的设计稿修改 1920/10
+          unitPrecision: 5, // 转换后的精度，即小数点位数 保留到5位小数
+          // selectorBlackList: ['ignore'],  // ignore 忽略转换正则匹配项, ['norem']过滤掉.norem-开头的class，不进行rem转换
+          propList: ['*'], // 需要转换的属性，这里选择全部都进行转换
+          replace: true, // 是否转换后直接更换属性值
+          mediaQuery: false, // 是否在媒体查询的css代码中也进行转换，默认false
+          minPixelValue: 1, // 默认值1，小于或等于1px则不进行转换
+          // landscape: false, // 是否处理横屏情况
+        })
+      ]
+    }
   },
   plugins: [
     vue(),
@@ -70,7 +85,6 @@ export default defineConfig({
       '^/api': {
         // 匹配请求路径，
         target: 'http://47.104.177.123:88/api', // 代理的目标地址--通用
-        // target: 'http://192.168.1.200:8888', // 代理的目标地址--通用
         // target: 'http://218.78.6.209:8888', // 代理的目标地址--通用
         // 开发模式，默认的127.0.0.1,开启后代理服务会把origin修改为目标地址
         changeOrigin: true,

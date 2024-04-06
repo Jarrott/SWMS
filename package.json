@@ -4,11 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "vite --mode pnd --host",
-    "dev": "vite --mode pnd --host",
-    "dev-pnd": "vite --mode pnd",
-    "build": "vue-tsc && vite build --mode pnd",
-    "build-pnd": "vue-tsc && vite build --mode pnd",
+    "start": "vite --mode swms --host",
+    "dev": "vite --mode swms --host",
+    "dev-swms": "vite --mode swms",
+    "build": "vue-tsc && vite build --mode swms",
+    "build-swms": "vue-tsc && vite build --mode swms",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -17,7 +17,9 @@
     "@rollup/plugin-inject": "^5.0.3",
     "@typescript-eslint/eslint-plugin": "^5.55.0",
     "@typescript-eslint/parser": "^5.55.0",
+    "@vitejs/plugin-vue-jsx": "^3.1.0",
     "@vueup/vue-quill": "^1.0.0-alpha.40",
+    "amfe-flexible": "^2.2.1",
     "axios": "^1.3.4",
     "compressorjs": "^1.2.1",
     "element-plus": "^2.3.0",
@@ -29,6 +31,7 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "pinia": "^2.1.7",
+    "postcss-pxtorem": "^6.1.0",
     "prettier": "^2.8.4",
     "quill-image-drop-module": "^1.0.3",
     "quill-image-resize-module": "^3.0.0",
@@ -40,7 +43,6 @@
     "unplugin-vue-components": "^0.24.1",
     "vite-plugin-vue-setup-extend": "^0.4.0",
     "vue": "^3.2.45",
-    "vue-awesome-swiper": "^5.0.1",
     "vue-router": "^4.1.6",
     "vuex": "^4.1.0"
   },

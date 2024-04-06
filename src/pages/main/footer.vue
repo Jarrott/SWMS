@@ -82,7 +82,7 @@ defineExpose({
 .footer-content {
   padding: 100px 0px 20px;
   color: #2e2e2d;
-  font-family: Oswald;
+  font-family: 'Oswald-Regular';
   background-color: #fff;
 
   .join-club {
@@ -106,7 +106,7 @@ defineExpose({
 
     .join-right-box {
       color: #2E2E2D;
-      font-family: Oswald;
+      font-family: 'Oswald-Regular';
       font-size: 14px;
       font-style: normal;
       font-weight: 400;
@@ -121,6 +121,7 @@ defineExpose({
         font-size: 16px;
         font-weight: 600;
         margin-bottom: 20px;
+        font-family: 'Oswald-Medium';
       }
     }
   }
@@ -164,6 +165,7 @@ defineExpose({
       font-style: normal;
       font-weight: 500;
       margin-bottom: 12px;
+      font-family: 'Oswald-Medium';
     }
 
     .little-title {
@@ -213,7 +215,7 @@ defineExpose({
     box-sizing: border-box;
     padding: 20px 86px;
     color: #2E2E2D;
-    font-family: Oswald;
+    font-family: "PingFang SC";
     font-size: 12px;
     font-style: normal;
     font-weight: 400;

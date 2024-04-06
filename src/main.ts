@@ -10,10 +10,12 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue';
 import zhLang from 'element-plus/es/locale/lang/zh-cn';
 
 zhLang.el.pagination.goto = '跳转';
-import QcSelect from '@/components/qcSelect/index.vue';
-import btnAntiShake from '@/utils/btnAntiShake'
-import config from '@/utils/config'
+import btnAntiShake from '@/utils/btnAntiShake';
+import config from '@/utils/config';
 
+import '@/assets/fontFamily/font.css';
+
+import 'amfe-flexible';
 
 const pinia = createPinia();
 
@@ -31,8 +33,6 @@ app.use(btnAntiShake);
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component);
 }
-
-app.component('qc-select', QcSelect);
 
 // app.mount('#app');
 

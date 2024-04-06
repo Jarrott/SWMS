@@ -4,7 +4,7 @@
 
       <el-header class="header-wrap">
         <div class="header-wrap-main" :class="headerHidden ? 'show-header' : 'hidden-header'">
-          <div class="logo-box" @click="clickTitle">
+          <div class="logo-box" @click="handleJumpUrl('home')">
             <img src="@/assets/images/home/logo.png" alt="" />
           </div>
            <div class="right-wrap">
@@ -20,7 +20,7 @@
               <span>ABOUT</span>
               <img class="icon-arrow" src="@/assets/images/home/arrow-down.png" alt="" />
             </div>
-            <div class="join-box">JOIN</div>
+            <div class="join-box" @click="handleJumpUrl('join')">JOIN</div>
             <img class="right-icon" src="@/assets/images/home/search.png" alt="" @click="handleSearch" />
             <img class="right-icon" src="@/assets/images/home/user.png" alt="" @click="handleLogin" />
             <img class="right-icon" src="@/assets/images/home/shopping-cart.png" alt="" />
@@ -119,6 +119,18 @@ const setChannelName = (str: any) => {
   orgObj.channelName = str;
 };
 
+watch(
+  () => route,
+  () => {
+    console.log('222');
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth' // 平滑滚动效果
+    });
+  },
+  { immediate: true, deep: true }
+);
+
 const handleSearch = () => {
   drawerDialog.value = true;
 };
@@ -129,12 +141,12 @@ const handleLogin = () => {
   });
 };
 
-// 返回首页
-const clickTitle = () => {
+
+const handleJumpUrl = (urlName: string) => {
   router.push({
-    path: '/home',
+    name: urlName,
   });
-};
+}
 
 const handleScroll = () => {
   let tempTop = (document.getElementById("mainContent")).getBoundingClientRect().top;
@@ -148,6 +160,8 @@ const handleScroll = () => {
 
 onMounted(() => {
   topHeight.value = (document.getElementById("mainContent")).getBoundingClientRect().top;
+  console.log('>>>>>>>>>>', topHeight.value);
+  
   window.addEventListener('scroll', handleScroll, true);
 });
 onBeforeUnmount(() => {
@@ -165,6 +179,8 @@ onBeforeUnmount(() => {
   height: 45px;
   border: 1px solid #2e2e2d;
   box-sizing: border-box;
+  color: #2E2E2D;
+  font-family: 'Oswald-Regular';
 
   :deep(.el-input__wrapper) {
     border-radius: 0;

@@ -7,44 +7,9 @@
           <div class="text-bg"></div>
           <div class="text">NEWEST RELEASES</div>
         </div>
-        <div class="more-text">SEE MORE <div class="iconfont icon-jiantou-you"></div></div>
+        <div class="more-text" @click="handleJumpUrl('goodsList')">SEE MORE <div class="iconfont icon-jiantou-you"></div></div>
       </div>
-
-      <div class="swiper-box">
-        <swiper
-          ref="interSwiper"
-          navigation
-          :modules="modules.modules"
-          :loop="false"
-          :slides-per-view="5"
-          :space-between="20"
-          :scrollbar="{ draggable: false }"
-          class="custom-carousel-box"
-          @slideChange="onSlideChange"
-        >
-          <swiper-slide v-for="(item, index) in data.goodsList" :key="index" class="swiper-slide">
-            <div class="swiper-item" >
-              <div class="swiper-item-bg" :style="{ backgroundColor: data.hover&&data.swiperIndex===index ? item.color : '' }" @mouseover="data.hover = true;data.swiperIndex=index;" @mouseleave="data.hover = false">
-                <img class="bg-img" :src="item.img" alt="" />
-              </div>
-              <div class="goods-info">
-                <div class="title">{{ item.title }}</div>
-                <div class="desc" v-if="index===0">{{ item.desc }}</div>
-                <div class="desc" v-else :style="`color: ${item.color};}`">{{ item.desc }}</div>
-              </div>
-            </div>
-          </swiper-slide>
-
-          <!-- <div class="swiper-button-prev swiper-button-left">
-            <div class="iconfont icon-jiantouzuo"></div>
-          </div>
-
-         <div class="swiper-button-next swiper-button-right">
-            <div class="iconfont icon-jiantou-you"></div>
-          </div> -->
-          
-        </swiper>
-      </div>
+      <GoodsListSwiper></GoodsListSwiper>
     </div>
 
     <div class="experience-box">
@@ -86,10 +51,9 @@
     <div class="story-box">
       <div class="theme-title">OUR STORY</div>
       <div class="video-box">
-        <!-- src="https://www.youtube.com/embed/SKJBQgIaRP4" -->
         <!-- https://www.mgtv.com/b/293426/3786938.html?start_time=3 -->
         <iframe
-          src=""
+          src="https://www.bilibili.com/video/BV19d4y1c7Mk/"
           width="100%"
           height="100%"
           frameborder="0"
@@ -191,7 +155,7 @@
               <div class="life-info-left">
                 <div class="life-title">{{ item.title }}</div>
                 <div class="desc">{{ item.desc }}</div>
-                <div class="about-info flex">{{ item.link }} <div class="iconfont icon-jiantou-you"></div></div>
+                <div class="about-info member-about-box flex">{{ item.link }} <div class="iconfont icon-jiantou-you"></div></div>
               </div>
               <div class="life-info-right">
                 <img :src="item.pic" alt="" />
@@ -213,6 +177,8 @@ import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
+import GoodsListSwiper from "@/components/goods-list-swpier/goodsListSwpier.vue";
+
 import goodsImg0 from "@/assets/images/home/goods.png";
 import goodsImg1 from "@/assets/images/home/goods_3.png";
 import goodsImg2 from "@/assets/images/home/goods_4.png";
@@ -230,6 +196,7 @@ import swiperImg4 from "@/assets/images/home/swiper_4.png";
 const proxy: any = getCurrentInstance()?.proxy;
 
 const route = useRoute();
+const router = useRouter();
 const interSwiper = ref();
 
 // const navigation = ref({
@@ -391,6 +358,12 @@ watch(
   },
   { immediate: true, deep: true }
 );
+
+const handleJumpUrl = (pathName: string) => {
+  router.push({
+    name: pathName
+  });
+};
 </script>
 
 <style lang="scss" scoped>
@@ -435,9 +408,9 @@ watch(
   }
 
   .swiper-goods-box {
+    margin-top: 44px;
 
     .title-box {
-      font-family: Oswald;
       font-style: normal;
       line-height: normal;
       letter-spacing: 0.54px;
@@ -459,6 +432,7 @@ watch(
         .text {
           position: absolute;
           left: 150px;
+          font-family: 'Oswald-Medium';
         }
       }
       .more-text {
@@ -474,6 +448,8 @@ watch(
         right: 240px;
         top: 50%;
         transform: translateY(-50%);
+        font-family: 'Oswald-Medium';
+        cursor: pointer;
 
         .icon-jiantou-you {
           font-size: 18px;
@@ -490,7 +466,7 @@ watch(
         padding-left: 60px;
         box-sizing: border-box;
         padding-top: 60px;
-        height: 550px;
+        height: 560px;
       }
 
       .swiper-item, .swiper-slide {
@@ -523,6 +499,7 @@ watch(
 
         .title {
           margin-top: 18px;
+          font-family: 'Oswald-Regular';
         }
 
         .desc {
@@ -530,6 +507,9 @@ watch(
           width: 318px;
           word-break: break-all;
           white-space: pre-wrap;
+          font-family: 'Oswald-Medium';
+          line-height: 33px;
+          margin-top: 6px;
         }
       }
     }
@@ -551,11 +531,12 @@ watch(
       text-transform: uppercase;
       width: 590px;
       margin: 276px 0 0 100px;
+      font-family: 'Oswald-Medium';
     }
 
     .little-title {
       color: #FFF;
-      font-family: Georgia;
+      font-family: 'Georgia-Italic';
       font-size: 18px;
       font-style: italic;
       font-weight: 400;
@@ -575,9 +556,15 @@ watch(
       padding: 0 24px;
       margin-right: 10px;
       cursor: pointer;
+      font-family: 'Oswald-Regular';
 
       &:first-child {
         margin-left: 100px;
+      }
+
+      &:hover {
+        background-color: #fff;
+        color: #2E2E2D;
       }
 
       .icon-jiantou-you {
@@ -597,6 +584,7 @@ watch(
     letter-spacing: 0.82px;
     text-transform: uppercase;
     margin-bottom: 32px;
+    font-family: 'Oswald-Medium'
   }
 
   .works {
@@ -610,8 +598,8 @@ watch(
         text-align: center;
 
         &-icon {
-          width: 85px;
-          height: 85px;
+          width: 115px;
+          height: 115px;
         }
 
         &-name {
@@ -623,12 +611,14 @@ watch(
           line-height: normal;
           letter-spacing: 0.54px;
           text-transform: uppercase;
+          font-family: 'Oswald-Medium';
+          margin: 10px 0 10px;
         }
 
         &-desc {
           color: #2E2E2D;
           text-align: center;
-          font-family: Georgia;
+          font-family: 'Georgia-Italic';
           font-size: 18px;
           font-style: italic;
           font-weight: 400;
@@ -668,11 +658,12 @@ watch(
       }
 
       .name {
-        font-family: Oswald;
+        font-family: 'Oswald-Medium';
         font-size: 36px;
         font-style: normal;
-        font-weight: 500;
+        font-weight: 700;
         line-height: normal;
+        letter-spacing: 0.72px;
       }
 
       .desc-box {
@@ -685,7 +676,7 @@ watch(
 
       &-left, &-right {
         color: #2E2E2D;
-        font-family: Georgia;
+        font-family: 'Georgia-Regular';
         font-size: 20px;
         font-style: normal;
         font-weight: 400;
@@ -716,7 +707,7 @@ watch(
 
   .society-box {
     background: #F2F2F2;
-    padding: 150px 4.5% 150px 4.5%;
+    padding: 120px 4.5% 120px 4.5%;
     width: 100%;
     box-sizing: border-box;
     position: relative;
@@ -765,8 +756,8 @@ watch(
 
       .life-info-left {
         color: #2E2E2D;
-        font-family: Oswald;
-        font-size: 48px;
+        font-family: 'Oswald-Medium';
+        font-size: 60px;
         font-style: normal;
         font-weight: 500;
         line-height: 64px;
@@ -775,30 +766,37 @@ watch(
         width: 568px;
 
         .desc {
-          font-family: Georgia;
+          font-family: 'Georgia-Regular';
           font-size: 20px;
           line-height: 32px;
           font-weight: 400;
           width: 568px;
           margin-top: 44px;
+          text-transform: none;
         }
 
         .about-info {
           font-size: 20px;
           line-height: 23px;
           font-weight: 500;
-          width: 254px;
+          width: 36%;
           border-bottom: 3px solid #2E2E2D;
           margin-top: 36px;
           cursor: pointer;
+          font-family: 'Oswald-Medium';
+
+          .icon-jiantou-you {
+            margin-left: 8px;
+            color: #000;
+          }
         }
       }
 
       .life-info-right {
-        margin-left: 20px;
+        margin-left: 180px;
 
         img {
-          width: 817px;
+          width: 100%;
         }
       }
 
@@ -819,28 +817,33 @@ watch(
     .life-swiper-box {
       .life-info-left {
         color: #2E2E2D;
-        font-family: Georgia;
-        font-size: 44px;
+        font-family: 'Georgia-Italic';
+        font-size: 60px;
         font-style: italic;
         font-weight: 400;
         line-height: 74px;
         letter-spacing: 0.48px;
         width: 568px;
 
+        .life-title {
+          text-transform: none;
+        }
+
         .desc {
-          font-family: Oswald;
+          font-family: 'Georgia-Regular';
           font-size: 22px;
           line-height: 32px;
           font-weight: 500;
           width: 568px;
-          margin-top: 44px;
+          margin-top: 36px;
+          text-transform: none;
         }
 
         .about-info {
           font-size: 20px;
           line-height: 23px;
           font-weight: 500;
-          width: 165px;
+          width: 26%;
           border-bottom: 3px solid #2E2E2D;
           margin-top: 36px;
           cursor: pointer;

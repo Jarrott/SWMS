@@ -8,7 +8,7 @@
   padding: 0;
   color: #2E2E2D;
   --el-header-padding: 0;
-  z-index: 2024;
+  z-index: 2001;
 
   &-main {
     position: fixed;
@@ -72,17 +72,18 @@
     .box-wrap {
       display: flex;
       align-items: center;
-      margin-left: 20px;
+      margin-right: 4%;
       cursor: pointer;
       
       span {
-        font-family: Oswald;
+        font-family: 'Oswald-Medium';
         font-size: 18px;
         font-style: normal;
         font-weight: 700;
         line-height: normal;
         letter-spacing: 0.36px;
         text-transform: uppercase;
+        margin-right: 10px;
       }
     }
 
@@ -95,16 +96,14 @@
       font-size: 20px;
       font-style: normal;
       font-weight: 700;
-      font-family: Oswald;
+      font-family: 'Oswald-Medium';
       letter-spacing: 0.4px;
       text-transform: uppercase;
-      margin-left: 20px;
       cursor: pointer;
     }
     .icon-arrow {
       width: 10px;
       height: 6px;
-      margin-left: 4px;
     }
 
     .right-icon {
@@ -117,9 +116,8 @@
 }
 
 .main-wrap {
-  // margin-top: 120px;
   position: relative;
-  padding: 46px 0px 30px 0px;
+  padding: 0px 0px 30px 0px;
   background-color: #fff;
   overflow-x: hidden;
   min-height: 80vh;
@@ -156,7 +154,7 @@
     }
   }
   .page-wrap {
-    margin-right: 20px;
+    // margin-right: 20px;
     height: 100%;
     background-color: #fff;
     border-radius: 12px;

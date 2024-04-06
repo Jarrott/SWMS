@@ -1,4 +1,4 @@
-import { queryRegion, getPprovince, getExport } from '@/service/apis/api';
+import { getExport } from '@/service/apis/api';
 import { cloneDeep } from 'lodash';
 import dayjs from 'dayjs';
 import { Md5 } from 'ts-md5';
@@ -6,32 +6,6 @@ import { Md5 } from 'ts-md5';
 export const exportFile = (url: string, name: string, params: any) => {
   getExport(url, `${name}-${dayjs(new Date()).format('YYYYMMDDHHmmss')}`, params);
 }
-
-const listToTree = (data: any) => {
-  // * 先生成parent建立父子关系
-  const obj = {} as any;
-  data.forEach((item: any) => {
-    obj[item.srId] = item;
-  });
-  // console.log(obj, "obj")
-  const parentList = [] as any;
-  data.forEach((item: any) => {
-    const parent = obj[item.parentId];
-    if (parent) {
-      // * 当前项有父节点
-      parent.children = parent.children || [];
-      item.label = item.name;
-      item.value = String(item.srId);
-      parent.children.push(item);
-    } else {
-      // * 当前项没有父节点 -> 顶层
-      item.label = item.name;
-      item.value = String(item.srId);
-      parentList.push(item);
-    }
-  });
-  return parentList;
-};
 
 // 密码md5加密
 export const getMd5 = (str: string) => {

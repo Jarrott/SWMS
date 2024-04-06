@@ -1,147 +1,67 @@
 <template>
-  <div class="home-wrap">
-
-    <div class="swiper-goods-box">
-      <div class="title-box">
-        <div class="text-box flex">
-          <div class="text-bg"></div>
-          <div class="text">NEWEST RELEASES</div>
-        </div>
-        <div class="more-text">SEE MORE <div class="iconfont icon-jiantou-you"></div></div>
-      </div>
-
-      <div class="swiper-box">
-        <swiper
-          ref="interSwiper"
-          navigation
-          :modules="modules.modules"
-          :loop="false"
-          :slides-per-view="5"
-          :space-between="20"
-          :scrollbar="{ draggable: false }"
-          class="custom-carousel-box"
-          @slideChange="onSlideChange"
-        >
-          <swiper-slide v-for="(item, index) in data.goodsList" :key="index" class="swiper-slide">
-            <div class="swiper-item" >
-              <div class="swiper-item-bg" :style="{ backgroundColor: data.hover&&data.swiperIndex===index ? item.color : '' }" @mouseover="data.hover = true;data.swiperIndex=index;" @mouseleave="data.hover = false">
-                <img class="bg-img" :src="item.img" alt="" />
-              </div>
-              <div class="goods-info">
-                <div class="title">{{ item.title }}</div>
-                <div class="desc" v-if="index===0">{{ item.desc }}</div>
-                <div class="desc" v-else :style="`color: ${item.color};}`">{{ item.desc }}</div>
-              </div>
-            </div>
-          </swiper-slide>
-
-          <!-- <div class="swiper-button-prev swiper-button-left">
-            <div class="iconfont icon-jiantouzuo"></div>
-          </div>
-
-         <div class="swiper-button-next swiper-button-right">
-            <div class="iconfont icon-jiantou-you"></div>
-          </div> -->
-          
-        </swiper>
-      </div>
-    </div>
-
+  <div class="join-wrap">
     <div class="experience-box">
-      <div class="title">EXPERIENCE WHISKY IN ITS PUREST FORM</div>
-      <div class="little-title">Membership starting at $99</div>
+      <div class="title">YOUR JOURNEY STARTS HERE</div>
+      <div class="little-title">Memberships starting at $99</div>
       <div class="opera-box flex">
         <div class="join-box flex justify-between">
-          <span>JOIN</span>
-          <div class="iconfont icon-jiantou-you"></div>
-        </div>
-        <div class="join-box flex justify-between">
-          <span>GIFT</span>
+          <span>JOIN NOW</span>
           <div class="iconfont icon-jiantou-you"></div>
         </div>
       </div>
     </div>
 
     <div class="works">
-      <div class="theme-title">HOW IT WORKS</div>
+      <div class="member-title">SELECT YOUR MEMBERSHIP</div>
       <div class="row-box flex justify-between">
         <div class="item">
-          <img class="item-icon" src="@/assets/images/home/key.png" alt="" />
-          <div class="item-name">JOIN</div>
-          <div class="item-desc">Become a member to unlock the world’s rarest collection of Scotch whisky</div>
+          <div class="item-left">
+            <img class="item-icon" src="@/assets/images/join/icon2.png" alt="" />
+          </div>
+          <div class="item-right">
+            <div class="item-name">JOIN</div>
+            <div class="item-type">BOTTLE</div>
+            <div class="money">Starting at $170</div>
+            <div class="select">SELECT <div class="iconfont icon-jiantou-you"></div></div>
+          </div>
         </div>
         <div class="item">
-          <img class="item-icon" src="@/assets/images/home/bottle.png" alt="" />
-          <div class="item-name">SHOP</div>
-          <div class="item-desc">Explore a diverse spectrum of one-of-a-kind whiskies suited to your own palate</div>
-        </div>
-        <div class="item">
-          <img class="item-icon" src="@/assets/images/home/cup.png" alt="" />
-          <div class="item-name">EXPERIENCE</div>
-          <div class="item-desc">Taste through the exciting world of pure whisky in the comfort of your own home or at our exclusive tasting events</div>
+          <div class="item-left">
+            <img class="item-icon" src="@/assets/images/join/icon3.png" alt="" />
+          </div>
+          <div class="item-right">
+            <div class="item-name">MEMBERSHIP + TASTING KIT</div>
+            <div class="item-type kit-type">TASTING KIT</div>
+            <div class="money">$195</div>
+            <div class="select kit">SELECT <div class="iconfont icon-jiantou-you"></div></div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="story-box">
-      <div class="theme-title">OUR STORY</div>
-      <div class="video-box">
-        <!-- src="https://www.youtube.com/embed/SKJBQgIaRP4" -->
-        <!-- https://www.mgtv.com/b/293426/3786938.html?start_time=3 -->
-        <iframe
-          src=""
-          width="100%"
-          height="100%"
-          frameborder="0"
-          allowfullscreen="true"
-          webkitallowfullscreen="true"
-          mozallowfullscreen="true"
-          oallowfullscreen="true"
-          msallowfullscreen="true"
-        />
-      </div>
-    </div>
+      <div class="row-box only-row-box">
+        <div class="middle-box">OR</div>
 
-    <div class="whisky-box">
-      <div class="theme-title">OUR WHISKY</div>
-      <div class="introduce flex">
-        <div class="introduce-left">
-          <div class="desc-box">
-            <div class="name">ONE OF A KIND</div>
-            <div class="text">No two casks will ever produce the same flavour so we've assigned a code and title to each to represent the unique tasting experience offered.</div>
+        <div class="item only-item-box">
+          <div class="only-row-top">
+            <div class="item-left">
+              <img class="item-icon only-icon" src="@/assets/images/home/vector.png" alt="" />
+            </div>
+            <div class="item-right">
+              <div class="item-name">MEMBERSHIP ONLY</div>
+              <div class="item-type only-type">MEMBERSHIP ONLY</div>
+              <div class="money">$99</div>
+            </div>
           </div>
-          <div class="desc-box">
-            <div class="name">TASTING NOTES</div>
-            <div class="text">Every bottle includes suggested tasting notes. Think of them as creative inspiration for your own flavour experience!</div>
-          </div>
-          <div class="desc-box">
-            <div class="name">TRANSPARENCY</div>
-            <div class="text">We’ve included everything you need to know about our whisky including the true age, origin, and type of cask(s) used for maturation.</div>
-          </div>
-        </div>
-        <div class="introduce-middle">
-          <img class="goods-icon" src="@/assets/images/home/goods_8.png" alt="" />
-          <img class="line-icon" src="@/assets/images/home/goods_line.png" alt="" />
-        </div>
-        <div class="introduce-right">
-          <div class="desc-box">
-            <div class="name">EXCEPTIONALLY RARE</div>
-            <div class="text">A Society cask will yield an average of just 200 bottles, making every whisky a true limited edition.</div>
-          </div>
-          <div class="desc-box">
-            <div class="name">FLAVOUR PROFILE</div>
-            <div class="text">Every Society whisky is categorized into one of twelve color-coded Flavour Profiles, making it easier to explore new styles,regions, and distilleries with confidence.</div>
-          </div>
-          <div class="desc-box">
-            <div class="name">NATURAL STRENGTH</div>
-            <div class="text">Society whisky is bottled at cask strength so that it can be enjoyed just as nature intended.</div>
+          <div class="only-btn-box flex">
+            <div class="select only-select">JOIN <div class="iconfont icon-jiantou-you"></div></div>
+            <div class="select only-select">GIFT <div class="iconfont icon-jiantou-you"></div></div>
           </div>
         </div>
       </div>
     </div>
 
     <div class="society-box">
-      <div class="theme-title">SOCIETY LIFE</div>
+      <div class="theme-title">MEMBER BENEFITS</div>
       <div class="line"></div>
       <div class="life-swiper-box">
         <swiper
@@ -159,39 +79,6 @@
               <div class="life-info-left">
                 <div class="life-title">{{ item.title }}</div>
                 <div class="desc">{{ item.desc }}</div>
-                <div class="about-info flex">{{ item.link }} <div class="iconfont icon-jiantou-you"></div></div>
-              </div>
-              <div class="life-info-right">
-                <img :src="item.pic" alt="" />
-              </div>
-            </div>
-          </swiper-slide>
-        </swiper>
-        <img class="next-img" :src="data.lifeData[data.lifeIndex].pic" alt="" />
-        
-      </div>
-    </div>
-
-    <div class="society-box member-box">
-      <div class="theme-title">FROM OUR MEMBERS</div>
-      <div class="line"></div>
-      <div class="life-swiper-box">
-        <swiper
-          navigation
-          :modules="modules.modules"
-          :loop="true"
-          :slides-per-view="1"
-          :space-between="20"
-          :scrollbar="{ draggable: false }"
-          class="custom-carousel-life-box"
-          @slideChange="onLifeSlideChange"
-        >
-          <swiper-slide v-for="(item, idex) in data.lifeData2" :key="idex" class="swiper-slide-life">
-            <div class="life-info">
-              <div class="life-info-left">
-                <div class="life-title">{{ item.title }}</div>
-                <div class="desc">{{ item.desc }}</div>
-                <div class="about-info flex">{{ item.link }} <div class="iconfont icon-jiantou-you"></div></div>
               </div>
               <div class="life-info-right">
                 <img :src="item.pic" alt="" />
@@ -213,18 +100,10 @@ import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
-import goodsImg0 from "@/assets/images/home/goods.png";
-import goodsImg1 from "@/assets/images/home/goods_3.png";
-import goodsImg2 from "@/assets/images/home/goods_4.png";
-import goodsImg3 from "@/assets/images/home/goods_9.png";
-import goodsImg4 from "@/assets/images/home/goods_5.png";
-import goodsImg5 from "@/assets/images/home/goods_10.png";
-import goodsImg6 from "@/assets/images/home/goods_7.png";
 import goodsImg7 from "@/assets/images/home/goods_6.png";
-import swiperImg1 from "@/assets/images/home/swiper_2.png";
-import swiperImg2 from "@/assets/images/home/swiper_1.png";
+import swiperImg1 from "@/assets/images/join/icon4.png";
+import swiperImg2 from "@/assets/images/join/icon5.png";
 import swiperImg3 from "@/assets/images/home/swiper_3.png";
-import swiperImg4 from "@/assets/images/home/swiper_4.png";
 
 
 const proxy: any = getCurrentInstance()?.proxy;
@@ -257,123 +136,25 @@ const onSlideChange = (swiper: any) => {
   console.log(swiper.activeIndex)
 };
 
-
-
 const data = reactive({
-  goodsList: [
-    {
-      img: goodsImg0,
-      title: 'BUNDLE',
-      desc: 'EMBRACE THE EXTRAORDINARY',
-      type: 0,
-      color: '#c2c2c2',
-    },
-    {
-      img: goodsImg1,
-      title: 'CASK NO. 19.94',
-      desc: 'THE ROSE CARDEN',
-      type: 1,
-      color: '#71307C',
-    },
-    {
-      img: goodsImg2,
-      title: 'CASK NO. 23.81',
-      desc: 'FATBERG AHEAD!',
-      type: 2,
-      color: '#276B9A',
-    },
-    {
-      img: goodsImg3,
-      title: 'CASK NO. 39.271',
-      desc: 'A CASK OF PLENTY',
-      type: 3,
-      color: '#60A8D3',
-    },
-    {
-      img: goodsImg4,
-      title: 'CASK NO. 44.145',
-      desc: 'PILGRIMAGE TO ELROCIO',
-      type: 4,
-      color: '#E6782A',
-    },
-    {
-      img: goodsImg5,
-      title: 'CASK NO. 53.458',
-      desc: 'TRULY A GEM',
-      type: 5,
-      color: '#74AF3E',
-    },
-    {
-      img: goodsImg6,
-      title: 'CASK NO. 55.82',
-      desc: 'THE GATHERING STILLNESS',
-      type: 6,
-      color: '#F8AE53',
-    },
-    {
-      img: goodsImg7,
-      title: 'CASK NO. 60.32',
-      desc: 'SPRINGTIME EXTRAVAGANZA',
-      type: 7,
-      color: '#D298C4',
-    }
-  ] as any,
-  carouselTotal: 8,
-  hover: false,
-  swiperIndex: null,
   lifeData: [
     {
-      title: 'A TRIP TO SCOTLAND WITH NEIL PATRICK HARRIS',
-      desc: 'Fellow Society member Neil Patrick Harris takes a bucket-list trip to our spiritual home in Scotland. Read more about his unforgettable travels and an experience all Society members can look forward to.',
-      link: 'READ MORE ABOUT IT',
+      title: 'DISCOVER',
+      desc: 'Experience the world’s most sought-after expressions of single malt whisky from over 150 unique distilleries released each month.',
       pic: swiperImg1
     },
     {
       title: 'SMWS takes home 10 medals from SFWSC!',
-      desc: 'The Scotch Malt Whisky Society has claims a historic 10 medals at the 2023 San Francisco World Spirits Competition. All winning whiskies will be released to members this year.',
-      link: 'See what got their attention',
+      desc: 'Experience the world’s most sought-after expressions of single malt whisky from over 150 unique distilleries released each month.',
       pic: swiperImg2
     },
     {
       title: 'SMWS takes home 10 medals from SFWSC!',
-      desc: 'The Scotch Malt Whisky Society has claims a historic 10 medals at the 2023 San Francisco World Spirits Competition. All winning whiskies will be released to members this year.',
-      link: 'See what got their attention',
+      desc: 'Experience the world’s most sought-after expressions of single malt whisky from over 150 unique distilleries released each month.',
       pic: swiperImg3
     },
-    {
-      title: 'SMWS takes home 10 medals from SFWSC!',
-      desc: 'The Scotch Malt Whisky Society has claims a historic 10 medals at the 2023 San Francisco World Spirits Competition. All winning whiskies will be released to members this year.',
-      link: 'See what got their attention',
-      pic: swiperImg4
-    }
   ] as any,
   lifeIndex: 0,
-  lifeData2: [
-    {
-      title: '"The best way to get rare single malt Scotch"',
-      desc: '– JEREMY SIERS',
-      link: 'WATCH VIDEO',
-      pic: swiperImg3
-    },
-    {
-      title: '"They keep it fun, they keep it reverent, it’s awesome!"',
-      desc: '– WHISKEY VAULT',
-      link: 'WATCH VIDEO',
-      pic: swiperImg4
-    },
-    {
-      title: '"Once you put this ring on, you’re turning into Smeagol and you’re never getting out of it!"',
-      desc: '– THE BOURBON JUNKIES',
-      link: 'WATCH VIDEO',
-      pic: swiperImg1
-    },
-    {
-      title: '"The process is set up perfectly for someone to explore the intricacies of Scotch whisky. The quality is second to none."',
-      desc: '– SCOTCH 4 DUMMIES',
-      link: 'WATCH VIDEO',
-      pic: swiperImg2
-    }
-  ] as any,
 });
 
 const onLifeSlideChange = (swiper: any) => {
@@ -394,10 +175,11 @@ watch(
 </script>
 
 <style lang="scss" scoped>
-.home-wrap {
+.join-wrap {
   padding: 0 4.5%;
   box-sizing: border-box;
   color: #FFF;
+  overflow: hidden;
 
   :deep(.swiper-button-prev), :deep(.swiper-button-next) {
     width: 50px;
@@ -434,113 +216,13 @@ watch(
     background: url('@/assets/images/home/swiper-right-icon.png') no-repeat;
   }
 
-  .swiper-goods-box {
-
-    .title-box {
-      font-family: Oswald;
-      font-style: normal;
-      line-height: normal;
-      letter-spacing: 0.54px;
-      text-transform: uppercase;
-      color: #2E2E2D;
-      position: relative;
-
-      .text-box {
-        font-size: 54px;
-        font-weight: 500;
-
-        .text-bg {
-          background: url("@/assets/images/home/logo_bg.png") no-repeat;
-          background-size: 100%;
-          width: 325px;
-          height: 327px;
-        }
-
-        .text {
-          position: absolute;
-          left: 150px;
-        }
-      }
-      .more-text {
-        display: flex;
-        width: 182px;
-        height: 64px;
-        justify-content: center;
-        align-items: center;
-        font-size: 23px;
-        font-weight: 600;
-        border: 4px solid #000;
-        position: absolute;
-        right: 240px;
-        top: 50%;
-        transform: translateY(-50%);
-
-        .icon-jiantou-you {
-          font-size: 18px;
-          margin-left: 12px;
-        }
-      }
-    }
-
-    .swiper-box {
-      position: relative;
-      top: -57px;
-
-      .custom-carousel-box {
-        padding-left: 60px;
-        box-sizing: border-box;
-        padding-top: 60px;
-        height: 550px;
-      }
-
-      .swiper-item, .swiper-slide {
-        box-sizing: border-box;
-        color: #2E2E2D;
-        font-size: 18px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: normal;
-        letter-spacing: 0.36px;
-        cursor: pointer;
-        margin-right: 20px;
-        width: 318px;
-
-        .swiper-item-bg {
-          background: #F2F2F2;
-          width: 318px;
-          height: 380px;
-          padding: 0px 20px;
-          box-sizing: border-box;
-
-          .bg-img {
-            width: 278px;
-            height: 400px;
-            position: relative;
-            top: -40px;
-            z-index: 9999;
-          }
-        }
-
-        .title {
-          margin-top: 18px;
-        }
-
-        .desc {
-          font-size: 30px;
-          width: 318px;
-          word-break: break-all;
-          white-space: pre-wrap;
-        }
-      }
-    }
-  }
-
   .experience-box {
-    background: url('@/assets/images/home/icon6.png') no-repeat;
+    background: url('@/assets/images/join/icon1.png') no-repeat;
     background-size: 100%;
     width: 100%;
-    height: 983px;
+    height: 643px;
     padding-top: 1px;
+    margin-top: 64px;
 
     .title {
       font-size: 82px;
@@ -550,13 +232,14 @@ watch(
       letter-spacing: 0.82px;
       text-transform: uppercase;
       width: 590px;
-      margin: 276px 0 0 100px;
+      margin: 150px 0 0 80px;
+      font-family: 'Oswald-Medium';
     }
 
     .little-title {
       color: #FFF;
-      font-family: Georgia;
-      font-size: 18px;
+      font-family: 'Georgia-Italic';
+      font-size: 24px;
       font-style: italic;
       font-weight: 400;
       line-height: normal;
@@ -566,15 +249,16 @@ watch(
 
     .join-box {
       border: 2px solid #FFF;
-      width: 245px;
+      width: 156px;
       height: 64px;
       font-size: 23px;
       font-style: normal;
       font-weight: 600;
       line-height: normal;
-      padding: 0 24px;
+      padding: 0px 24px;
       margin-right: 10px;
       cursor: pointer;
+      font-family: 'Oswald-Medium';
 
       &:first-child {
         margin-left: 100px;
@@ -584,6 +268,18 @@ watch(
         font-size: 24px;
       }
     }
+  }
+
+  .member-title {
+    color: #2E2E2D;
+    text-align: center;
+    font-family: 'Oswald-Medium';
+    font-size: 54px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 60px;
+    letter-spacing: 0.54px;
+    text-transform: uppercase;
   }
 
   .theme-title {
@@ -600,116 +296,158 @@ watch(
   }
 
   .works {
-    margin-top: 84px;
+    margin-top: 90px;
+    margin-bottom: 120px;
 
     .row-box {
-      margin-top: 44px;
+      margin-top: 60px;
       align-items: flex-start;
+      padding: 0 170px;
+      position: relative;
+
+      .middle-box {
+        position: absolute;
+        top: -50px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 80px;
+        line-height: 80px;
+        border-radius: 40px;
+        background: #FFF;
+        color: #2E2E2D;
+        text-align: center;
+        font-family: 'Oswald-Regular';
+        font-size: 23px;
+        font-style: normal;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+
       .item {
         flex: 1;
-        text-align: center;
+        background: #F2F2F2;
+        padding: 30px 0;
+        box-sizing: border-box;
+        display: flex;
 
-        &-icon {
-          width: 85px;
-          height: 85px;
+        &:first-child {
+          margin-right: 30px;
         }
 
-        &-name {
+        .item-left {
+          padding: 0 45px;
+          border-right: 1px solid #C1C1C1;
+          box-sizing: border-box;
+          margin-right: 40px;
+        }
+
+        .item-icon {
+          width: 100px;
+          height: 244px;
+        }
+
+        .only-icon {
+          width: 149px;
+          height: 149px;
+        }
+
+        .item-name {
           color: #2E2E2D;
-          text-align: center;
-          font-size: 54px;
+          font-family: 'Oswald-Regular';
+          font-size: 18px;
           font-style: normal;
           font-weight: 500;
-          line-height: normal;
-          letter-spacing: 0.54px;
+          line-height: 18px;
+          letter-spacing: 0.36px;
           text-transform: uppercase;
         }
 
-        &-desc {
+        .item-type {
+          color: #74AF3E;
+          font-family: 'Oswald-Medium';
+          font-size: 54px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: 60px;
+          letter-spacing: 0.54px;
+          text-transform: uppercase;
+          margin: 10px 0 22px;
+
+          &.kit-type {
+            color: #202448;
+          }
+
+          &.only-type {
+            color: #71307C;
+          }
+        }
+
+        .money {
           color: #2E2E2D;
-          text-align: center;
-          font-family: Georgia;
-          font-size: 18px;
+          font-family: 'Georgia-Italic';
+          font-size: 24px;
           font-style: italic;
           font-weight: 400;
-          line-height: 24px;
+          line-height: 28px;
+          letter-spacing: 0.48px;
+        }
+
+        .select {
+          display: flex;
+          width: 168px;
+          height: 64px;
+          padding: 0px 20px;
+          align-items: center;
+          border: 4px solid #74AF3E;
+          box-sizing: border-box;
+          margin-top: 18px;
+          color: #74AF3E;
+          font-family: 'Oswald-Medium';
+          font-size: 23px;
+          font-style: normal;
+          font-weight: 600;
+          line-height: 26px;
           letter-spacing: 0.4px;
-          padding: 12px 12px 0;
+          text-transform: uppercase;
+          justify-content: space-between;
+          cursor: pointer;
+
+          .icon-jiantou-you {
+            font-size: 24px;
+            font-weight: 700;
+          }
+        }
+
+        .kit {
+          border: 4px solid #202448;
+          color: #202448;
+        }
+
+        .only-select {
+          border: 4px solid #71307C;
+          color: #71307C;
+          margin-right: 10px;
         }
       }
     }
-  }
 
-  .story-box {
-    margin-top: 87px;
+    .only-row-box {
+      width: 840px;
+      border: 1px solid;
+      margin: 20px auto;
 
-    .video-box {
-      background: url('@/assets/images/home/story_bg.png') no-repeat;
-      background-size: contain;
-      width: 100%;
-      height: 500px;
-      padding: 25px 35px;
-      box-sizing: border-box;
-    }
-  }
-
-  .whisky-box {
-    width: 100%;
-    margin-top: 100px;
-
-    .introduce {
-      align-items: flex-start;
-      margin-top: 64px;
-      padding: 0 32px;
-      box-sizing: border-box;
-
-      .goods-icon {
-        width: 213px;
+      .only-item-box {
+        display: block;
+        padding: 50px 0;
       }
 
-      .name {
-        font-family: Oswald;
-        font-size: 36px;
-        font-style: normal;
-        font-weight: 500;
-        line-height: normal;
+      .only-row-top {
+        display: flex;
       }
 
-      .desc-box {
-        margin-top: 62px;
-
-        &:first-child {
-          margin-top: 128px;
-        }
-      }
-
-      &-left, &-right {
-        color: #2E2E2D;
-        font-family: Georgia;
-        font-size: 20px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 32px;
-        letter-spacing: 0.4px;
-        text-align: right;
-        width: 40%;
-      }
-
-      &-right {
-        text-align: left;
-      }
-
-      &-middle {
-        position: relative;
-        margin: 0 134px 0 114px;
-
-        .line-icon {
-          position: absolute;
-          width: 456px;
-          height: 453px;
-          left: -112px;
-          top: 160px;
-        }
+      .only-btn-box {
+        margin-left: 34.4%;
       }
     }
   }
@@ -765,40 +503,33 @@ watch(
 
       .life-info-left {
         color: #2E2E2D;
-        font-family: Oswald;
-        font-size: 48px;
+        font-family: 'Oswald-Medium';
+        font-size: 54px;
         font-style: normal;
         font-weight: 500;
-        line-height: 64px;
+        line-height: 60px;
         letter-spacing: 0.54px;
         text-transform: uppercase;
         width: 568px;
 
         .desc {
-          font-family: Georgia;
-          font-size: 20px;
-          line-height: 32px;
-          font-weight: 400;
-          width: 568px;
+          width: 528px;
           margin-top: 44px;
-        }
-
-        .about-info {
-          font-size: 20px;
-          line-height: 23px;
-          font-weight: 500;
-          width: 254px;
-          border-bottom: 3px solid #2E2E2D;
-          margin-top: 36px;
-          cursor: pointer;
+          font-family: 'Georgia-Italic';
+          font-size: 24px;
+          font-style: italic;
+          font-weight: 400;
+          line-height: 38px;
+          letter-spacing: 0.48px;
+          text-transform: none;
         }
       }
 
       .life-info-right {
-        margin-left: 20px;
+        margin-left: 280px;
 
         img {
-          width: 817px;
+          width: 100%;
         }
       }
 
@@ -807,48 +538,11 @@ watch(
         z-index: 9999;
         right: -600px;
         top: 58px;
+        // width: 120px;
         height: 475px;
       }
       
     }
-  }
-
-  .member-box {
-    margin-top: 120px;
-
-    .life-swiper-box {
-      .life-info-left {
-        color: #2E2E2D;
-        font-family: Georgia;
-        font-size: 44px;
-        font-style: italic;
-        font-weight: 400;
-        line-height: 74px;
-        letter-spacing: 0.48px;
-        width: 568px;
-
-        .desc {
-          font-family: Oswald;
-          font-size: 22px;
-          line-height: 32px;
-          font-weight: 500;
-          width: 568px;
-          margin-top: 44px;
-        }
-
-        .about-info {
-          font-size: 20px;
-          line-height: 23px;
-          font-weight: 500;
-          width: 165px;
-          border-bottom: 3px solid #2E2E2D;
-          margin-top: 36px;
-          cursor: pointer;
-        }
-      }
-    }
-
-    
   }
 }
 </style>

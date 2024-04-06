@@ -1,0 +1,24 @@
+@font-face {
+  font-family: "Georgia-Italic";
+  src: url('./Georgia Italic.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Georgia-Regular";
+  src: url('./Georgia.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Oswald-Regular";
+  src: url('./Oswald-Regular.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Oswald-Medium";
+  src: url('./Oswald-Medium.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
