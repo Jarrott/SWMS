@@ -117,49 +117,22 @@
 
 .main-wrap {
   position: relative;
-  padding: 0px 0px 30px 0px;
+  padding: 0px 0px 0px 0px;
   background-color: #fff;
-  overflow-x: hidden;
-  min-height: 80vh;
-
-  .top-tip-wrap {
-    display: inline-flex;
-    align-items: flex-start;
-    margin-right: 20px;
-    margin-bottom: 10px;
-    padding: 0 7px;
-    line-height: 22px;
-    font-size: 12px;
-    color: var(--el-color-primary);
-    background-color: rgba(80, 115, 247, 0.2);
-    border-radius: 4px;
-    .icon {
-      width: 16px;
-      height: 16px;
-      line-height: 22px;
-      margin-top: 4px;
-      margin-right: 6px;
-      background-image: url(@/assets/images/head-tip.png);
-      background-repeat: no-repeat;
-      background-size: 100%;
-    }
-  }
+  overflow: hidden;
+  // min-height: 80vh;
 
   .page-scrollbar {
     width: 100%;
-    height: calc(100vh - 64px - 76px);
+    height: calc(100vh - 60PX);
 
     :deep(.el-scrollbar__view) {
       height: auto;
     }
   }
   .page-wrap {
-    // margin-right: 20px;
     height: 100%;
     background-color: #fff;
     border-radius: 12px;
-  }
-  .page-wrap1 {
-    background-color: #f6f8ff;
   }
 }

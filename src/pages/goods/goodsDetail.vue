@@ -109,7 +109,7 @@
         <GoodsListSwiper></GoodsListSwiper>
       </div>
     </div>
-    
+
   </div>
 </template>
 <script lang="ts" setup>
@@ -464,13 +464,7 @@ if (id) {
 }
 
 onMounted(() => {
-  let scrolltop = document.documentElement.scrollTop;
-  console.log('op', scrolltop);
   
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth' // 平滑滚动效果
-  });
 });
 onUnmounted(() => {
   

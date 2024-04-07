@@ -36,4 +36,8 @@ const router = createRouter({
   ],
 });
 
+router.beforeEach(() => {
+  (window as any).scrollTo({ top: 0, behavior: 'smooth' });
+})
+
 export default router;

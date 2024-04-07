@@ -40,38 +40,22 @@
         </el-drawer>
       </el-header>
 
-      <el-container>
-        <el-main class="main-wrap" id="mainContent">
-          <!-- 提示 -->
-          <div >
-            <div v-if="$route.meta.title">
-              <el-scrollbar class="page-scrollbar">
-                <div class="page-wrap">
-                  <router-view v-slot="{ Component }">
-                    <keep-alive :include="cacheRE">
-                      <component
-                        :is="Component"
-                        @clear-cache="clearCache"
-                        @get-update="getUpdate"
-                        @set-update="setUpdate"
-                      />
-                    </keep-alive>
-                  </router-view>
-                </div>
-              </el-scrollbar>
+      <el-main class="main-wrap" id="mainContent" @scroll.passive="handleScroll($event)" @mousewheel="mouseWheel">
+        <div>
+          <el-scrollbar class="page-scrollbar">
+            <div class="page-wrap">
+              <router-view
+                ref="RouterView"
+                :key="$route.fullPath"
+              ></router-view>
             </div>
-            <router-view
-              v-else
-              ref="RouterView"
-              :key="$route.path"
-              @channel-name="setChannelName"
-            ></router-view>
-          </div>
-        </el-main>
-        <el-footer>
-          <Footer></Footer>
-        </el-footer>
-      </el-container>
+          </el-scrollbar>
+        </div>
+      </el-main>
+      <el-footer>
+        <Footer></Footer>
+      </el-footer>
+
     </el-container>
   </div>
 </template>
@@ -104,68 +88,54 @@ const setUpdate = (flag: boolean) => {
 
 const route = useRoute();
 const router = useRouter();
-const topHeight = ref(0);
 
 const drawerDialog = ref(false);
 
 const searchValue = ref('');
 
-const orgObj = reactive({
-  id: '-1',
-  channelName: '',
-});
-
-const setChannelName = (str: any) => {
-  orgObj.channelName = str;
-};
-
-watch(
-  () => route,
-  () => {
-    console.log('222');
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth' // 平滑滚动效果
-    });
+watch(() => route,(newValue) => {
+    nextTick(() => {
+      clearKeepAliveCache();
+    })
   },
   { immediate: true, deep: true }
 );
 
+// 头部搜索项
 const handleSearch = () => {
   drawerDialog.value = true;
 };
 
+// 跳转登录
 const handleLogin = () => {
   router.push({
     path: '/login',
   });
 };
 
-
+// 路由跳转
 const handleJumpUrl = (urlName: string) => {
   router.push({
     name: urlName,
   });
-}
-
-const handleScroll = () => {
-  let tempTop = (document.getElementById("mainContent")).getBoundingClientRect().top;
-
-  if (tempTop < 0) {
-    headerHidden.value = false;
-  } else if (tempTop > 0 || tempTop === 120) {
-    headerHidden.value = true;
-  }
 };
 
+const mouseWheel = (e?: any) => {
+  if (e.wheelDelta || e.detail) {
+    if (e.wheelDelta > 0 || e.detail < 0) {
+      headerHidden.value = true;
+    }
+    if (e.wheelDelta < 0 || e.detail > 0) {
+      headerHidden.value = false;
+    }
+  }
+}
+
 onMounted(() => {
-  topHeight.value = (document.getElementById("mainContent")).getBoundingClientRect().top;
-  console.log('>>>>>>>>>>', topHeight.value);
-  
-  window.addEventListener('scroll', handleScroll, true);
+  // window.addEventListener('scroll', handleScroll, true);
 });
 onBeforeUnmount(() => {
-  window.removeEventListener('scroll', handleScroll);
+  // window.removeEventListener('scroll', handleScroll);
 });
 </script>
 

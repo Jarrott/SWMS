@@ -1,3 +1,10 @@
+/*
+ * @Description: 
+ * @Author:  
+ * @Date: 2024-04-02 09:36:22
+ * @LastEditTime: 2024-04-07 11:20:43
+ * @LastEditors:  
+ */
 /** ---平台菜单--- */
 export const platform = [
   {
@@ -24,7 +31,7 @@ export const platform = [
     component: () =>
       import('@/pages/goods/goodsList.vue'),
     meta: {
-      title: ''
+      title: 'goodsList'
     },
   },
   {
@@ -33,7 +40,7 @@ export const platform = [
     component: () =>
       import('@/pages/goods/goodsDetail.vue'),
     meta: {
-      title: ''
+      title: 'goodsDetail'
     },
   },
   {
@@ -42,7 +49,7 @@ export const platform = [
     component: () =>
       import('@/pages/cart/cart.vue'),
     meta: {
-      title: ''
+      title: 'cart'
     },
   },
 ];

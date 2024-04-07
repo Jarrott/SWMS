@@ -135,19 +135,27 @@ const data = reactive({
 
 watch(
   () => route,
-  () => {
+  (newValue) => {
   },
   { immediate: true, deep: true }
 );
 
 
 const handleJumpDetails = (id: number) => {
-  router.push({
-    name: 'goodsDetail',
-    query: {
-      id
-    }
-  })
+  let url = router.currentRoute.value;
+  // 如果当前路由在详情页，那么跳转用 
+  if (router.currentRoute.value.path === '/goodsDetail') {
+    router.replace({
+      name: 'goodsDetail',
+      query: { id }
+    });
+  } else {
+    router.push({
+      name: 'goodsDetail',
+      query: { id }
+    });
+  }
+  
 }
 </script>
 <style lang="scss" scoped>

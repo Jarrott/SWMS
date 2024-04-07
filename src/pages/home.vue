@@ -51,9 +51,8 @@
     <div class="story-box">
       <div class="theme-title">OUR STORY</div>
       <div class="video-box">
-        <!-- https://www.mgtv.com/b/293426/3786938.html?start_time=3 -->
         <iframe
-          src="https://www.bilibili.com/video/BV19d4y1c7Mk/"
+          src="https://www.youtube.com/embed/SKJBQgIaRP4"
           width="100%"
           height="100%"
           frameborder="0"
@@ -371,6 +370,7 @@ const handleJumpUrl = (pathName: string) => {
   padding: 0 4.5%;
   box-sizing: border-box;
   color: #FFF;
+  overflow: hidden;
 
   :deep(.swiper-button-prev), :deep(.swiper-button-next) {
     width: 50px;
