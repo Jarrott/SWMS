@@ -44,7 +44,7 @@
     <div class="list-box">
 
       <div class="row-item"
-        v-for="(goodsItem, index) in data.goodsListData" :key="index" @click.stop="handleJumpDetails(goodsItem.id)">
+        v-for="(goodsItem, index) in data.goodsListData" :key="index">
 
         <img class="new-icon" v-if="goodsItem.isNew" src="@/assets/images/goods/new.png" alt="">
 
@@ -53,14 +53,14 @@
 
         
         <template v-if="index===0 || index===1">
-          <div class="img-box" v-if="index===0"><img class="item-icon" src="@/assets/images/goods/icon1.png" alt="" /></div>
-          <div class="img-box" v-else-if="index===1"><img class="item-icon" src="@/assets/images/goods/icon2.png" alt="" /></div>
+          <div @click.stop="handleJumpDetails(goodsItem.id)" class="img-box" v-if="index===0"><img class="item-icon" src="@/assets/images/goods/icon1.png" alt="" /></div>
+          <div @click.stop="handleJumpDetails(goodsItem.id)" class="img-box" v-else-if="index===1"><img class="item-icon" src="@/assets/images/goods/icon2.png" alt="" /></div>
           <div class="text">{{ goodsItem.no }}</div>
           <div class="title">{{ goodsItem.title }}</div>
         </template>
 
         <template v-else>
-          <div class="img-box">
+          <div class="img-box" @click.stop="handleJumpDetails(goodsItem.id)">
             <img class="goods-icon" :src="goodsItem.img" alt="" />
           </div>
           <div class="info-box" v-if="goodsItem.type === 2">
@@ -95,14 +95,15 @@
         </template>
 
         <div class="btn-box flex">
-          <div class="btn btn1 flex" v-if="goodsItem.type===1">
+          <div class="btn btn1 flex" v-if="goodsItem.type===1" @click.stop="handleJumpName('cart')">
             <span>ADD TO CART</span>
             <span class="iconfont icon-xiangyou"></span>
           </div>
+
           <div class="btn btn1 flex" v-else
           :style="[goodsItem.hovered ? `border:1px solid ${goodsItem.color};color: ${goodsItem.color};background:#fff;`: `background: ${goodsItem.color};border:1px solid ${goodsItem.color};color:#fff;`]"
           @mouseover="goodsItem.hovered = true"
-          @mouseleave="goodsItem.hovered = false">
+          @mouseleave="goodsItem.hovered = false" @click.stop="handleJumpName('join')">
             <span>JOIN</span>
             <span class="iconfont icon-xiangyou" ></span>
           </div>
@@ -110,7 +111,8 @@
           <div class="btn btn2 flex"
           :style="[goodsItem.hovered1 ? `background: ${goodsItem.color};border:1px solid ${goodsItem.color};color:#fff;` : `border:1px solid ${goodsItem.color};color: ${goodsItem.color};background:#fff;`]"
           @mouseover="goodsItem.hovered1 = true"
-          @mouseleave="goodsItem.hovered1 = false">
+          @mouseleave="goodsItem.hovered1 = false"
+          @click.stop="handleJumpDetails(goodsItem.id)">
             <span>MORE INFO</span>
             <span class="iconfont icon-xiangyou"></span>
           </div>
@@ -739,6 +741,11 @@ const handleJumpDetails = (id: number) => {
     }
   })
 };
+
+// 跳转
+const handleJumpName = (name: string) => {
+  router.push({ name })
+}
 
 // 筛选条件是否选中
 const handleFilterClick = (type: string, item: any) => {

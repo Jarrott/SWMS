@@ -3,7 +3,7 @@
     <div class="cart-box">
       <div class="title flex">
         <span>Cart</span>
-        <span class="shop">Continue Shopping</span>
+        <span class="shop" @click="handleJump">Continue Shopping</span>
       </div>
       <div class="table-title flex">
         <div class="table-title-1">product</div>
@@ -86,6 +86,8 @@
 <script lang="ts" setup>
 import GoodsListSwiper from "@/components/goods-list-swpier/goodsListSwpier.vue";
 
+const router = useRouter();
+
 const data = reactive({
   checked: false,
   remarks: '',
@@ -119,12 +121,13 @@ const actualMoneyComputed = computed(() => {
   return '0.00';
 });
 
+// 商品价格计算
 const handleChange = (item: any) => {
   item.productTotal = (item.productNum * item.productPrice);
 };
 
+// 单个商品删除
 const handleRemoveItem = (item: any, index: number) => {
-
   ElMessageBox.confirm('Are you sure you want to delete it', 'Tip', {
     confirmButtonText: 'confirm',
     cancelButtonText: 'cancel',
@@ -135,10 +138,17 @@ const handleRemoveItem = (item: any, index: number) => {
 
 };
 
+// 更新购物车
 const handleUpdate = () => {
   if (!data.checked) {
     return
   }
+};
+
+const handleJump = () => {
+  router.push({
+    name: 'goodsList',
+  });
 }
 </script>
 
@@ -169,6 +179,7 @@ const handleUpdate = () => {
         letter-spacing: 0.4px;
         text-decoration-line: underline;
         text-transform: capitalize;
+        cursor: pointer;
       }
     }
 

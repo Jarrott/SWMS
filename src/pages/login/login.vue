@@ -6,18 +6,20 @@
         <div class="form-box-item">
           <div class="label">EMAIL</div>
           <div class="item-input">
-            <el-input v-model="data.email" class="form-input" placeholder=""></el-input>
+            <el-input v-model="data.email" class="form-input" :class="{'ErrorBorder': emailError}"></el-input>
           </div>
+          <div v-if="emailError" class="error-text">{{ emailError }}</div>
         </div>
         <div class="form-box-item">
           <div class="label">PASSWORD</div>
           <div class="item-input">
-            <el-input v-model="data.password" class="form-input" placeholder=""></el-input>
+            <el-input v-model="data.password" class="form-input" :class="{'ErrorBorder': passwordError}"></el-input>
           </div>
+          <div v-if="passwordError" class="error-text">{{ passwordError }}</div>
         </div>
       </div>
       <div class="btn-box">
-        <div class="join-btn login-btn flex">
+        <div class="join-btn login-btn flex" @click="clickLogin">
           <span>LOGIN</span>
           <div class="iconfont icon-jiantou-you"></div>
         </div>
@@ -27,7 +29,7 @@
     <div class="login-wrap-right">
       <h2>NOT A MEMBER YET?</h2>
       <div>Sign up for a member account to take advantage of all the benefits offered by the Scotch Malt Whisky Society.</div>
-      <div class="join-btn flex">
+      <div class="join-btn flex" @click="handleJoin">
         <span>JOIN</span>
         <div class="iconfont icon-jiantou-you"></div>
       </div>    
@@ -36,54 +38,39 @@
 </template>
 
 <script lang="ts" setup>
-import type { FormRules, FormInstance } from 'element-plus';
-import bg1 from '@/assets/images/login/bg1.png';
-import bg2 from '@/assets/images/login/bg2.png';
-import icon from '@/assets/images/login/img.png';
-import {
-  sendSmsCode,
-  login,
-  queryMenuTree,
-  queryButtonList,
-} from '@/service/apis/api';
-import { getMd5 } from '@/utils/utils';
 
 const router = useRouter();
-const formRef = ref<FormInstance>();
 
-const title = document.title;
-
-const ruleForm = reactive({
-  userName: '',
-  password: '',
-  smsCode: '',
-});
-
-// 记住账号密码
-let savePws = ref(false);
-const saveLogin = window.localStorage.getItem('login');
-if (saveLogin) {
-  savePws.value = true;
-  const obj = JSON.parse(saveLogin);
-  ruleForm.userName = obj.userName;
-  ruleForm.password = obj.password;
-}
-
-// 获取验证码
 const data = reactive({
   email: '',
   password: '',
 });
-const clickCode = () => {
-  
+
+const emailError = ref('');
+const passwordError = ref('');
+
+// join
+const handleJoin = () => {
+  router.push({
+    name: 'join',
+  });
 };
 
 // 登录
 const clickLogin = async () => {
-  router.push({
-    name: 'home',
-  });
-
+  if (!data.email) {
+    emailError.value = 'Email is required.';
+  }
+  if (!data.password) {
+    passwordError.value = 'Password is required.';
+  }
+  if (data.email && data.password) {
+    emailError.value = '';
+    passwordError.value = '';
+    router.push({
+      name: 'home',
+    });
+  }
 };
 
 const keydownEvent = () => {
@@ -119,7 +106,7 @@ onUnmounted(() => {
     box-sizing: border-box;
     padding: 60px 4.5%;
     color: #2e2e2d;
-    font-family: Oswald, sans-serif;
+    font-family: 'Oswald-Medium', sans-serif;
     
     h2 {
       font-size: 2.7em;
@@ -135,6 +122,7 @@ onUnmounted(() => {
 
         .label {
           margin-bottom: 5px;
+          font-size: 16px;
         }
 
         .form-input {
@@ -147,6 +135,17 @@ onUnmounted(() => {
             border: 0;
             
           }
+
+          &.ErrorBorder {
+            border: 1px solid red;
+          }
+        }
+
+        .error-text {
+          color: red;
+          font-family: 'Oswald-Medium';
+          margin-top: 4px;
+          font-size: 14px;
         }
       }
     }
@@ -201,6 +200,11 @@ onUnmounted(() => {
     margin-top: 32px;
     cursor: pointer;
 
+    &:hover {
+      background-color: #fff;
+      color: #2e2e2d;
+    }
+
     .icon-jiantou-you {
       font-weight: 700;
       font-size: 23px;
@@ -211,6 +215,11 @@ onUnmounted(() => {
   .login-btn {
     border: 4px solid #2e2e2d;
     color: #2e2e2d;
+
+    &:hover {
+      background-color: #2e2e2d;
+      color: #fff;
+    }
   }
 }
 </style>
