@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { exit } from '@/utils/utils';
-import { ElMessage } from "element-plus";
+import { ElMessage, ElLoading } from "element-plus";
 
 const baseURL = '/api';
 let loading = reactive({
@@ -27,8 +27,6 @@ const request = axios.create({
   headers: {
     'Content-Type': 'application/json',
     token: window.localStorage.getItem('token') || '',
-    channelId: window.localStorage.getItem('channelId') || '',
-    orgId: window.localStorage.getItem('orgId') || '',
     encryptFlag: 'N',
   },
 });
@@ -67,8 +65,6 @@ request.interceptors.request.use(
     //   return;
     // }
     config.headers.token = config.params.noToken ? '' : tt;
-    config.headers.channelId = window.localStorage.getItem('channelId') || '';
-    config.headers.orgId = window.localStorage.getItem('orgId') || '';
 
     if (config.params.type === 'import') {
       console.log('aa----', config.headers);
@@ -93,24 +89,7 @@ request.interceptors.request.use(
         token: window.localStorage.getItem('token'),
         version: '2.0',
         appId: '1.1',
-        encryptFlag: 'N',
-        // channelId: '1648601415276154881',
-        // channelId: '1665556731594723330',
-        channelId: window.localStorage.getItem('channelId') || '',
-        orgId: window.localStorage.getItem('orgId') || '',
       },
-      // account: {
-      //   accountId: '1.1.1',
-      //   accountName: '111',
-      //   type: 'C',
-      //   orgId: '1648290454501675009',
-      //   operatorId: '111111',
-      //   // channelId: '1648601415276154881',
-      //   // channelId: '1665556731594723330',
-      //   channelId: '',
-      //   extInfo: {},
-      //   filters: {},
-      // },
       errorMsg: config.params.errorMsg || false, // true时异常提示自定义
       errorHand: config.params.errorHand || false, // true时异常数据返回
       isLoading: config.params.isLoading === false ? false : true, // true时有loading

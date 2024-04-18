@@ -1,7 +1,7 @@
 <template>
   <div class="login-wrap">
     <div class="login-wrap-left">
-      <h2>MEMBER LOGIN</h2>
+      <h1>MEMBER LOGIN</h1>
       <div class="form-box">
         <div class="form-box-item">
           <div class="label">EMAIL</div>
@@ -19,17 +19,17 @@
         </div>
       </div>
       <div class="btn-box">
-        <div class="join-btn login-btn flex" @click="clickLogin">
+        <div class="join-btn login-btn flex translate-btn" @click="clickLogin">
           <span>LOGIN</span>
           <div class="iconfont icon-jiantou-you"></div>
         </div>
-        <div class="forgot-text">Forgot your password?</div>
+        <div class="forgot-text" @click="handleJumpUrl('forgotPwd')">Forgot your password?</div>
       </div>
     </div>
     <div class="login-wrap-right">
       <h2>NOT A MEMBER YET?</h2>
       <div>Sign up for a member account to take advantage of all the benefits offered by the Scotch Malt Whisky Society.</div>
-      <div class="join-btn flex" @click="handleJoin">
+      <div class="join-btn flex translate-btn" @click="handleJumpUrl('join')">
         <span>JOIN</span>
         <div class="iconfont icon-jiantou-you"></div>
       </div>    
@@ -49,11 +49,9 @@ const data = reactive({
 const emailError = ref('');
 const passwordError = ref('');
 
-// join
-const handleJoin = () => {
-  router.push({
-    name: 'join',
-  });
+
+const handleJumpUrl = (name: string) => {
+  router.push({ name });
 };
 
 // 登录
@@ -67,6 +65,7 @@ const clickLogin = async () => {
   if (data.email && data.password) {
     emailError.value = '';
     passwordError.value = '';
+    window.localStorage.setItem('token', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhY2NvdW50Q29kZSI6ImFkbWluIiwiYWNjb3V');
     router.push({
       name: 'home',
     });
@@ -101,7 +100,6 @@ onUnmounted(() => {
     flex: 1;
     background-color: #f7f7f7;
     border: 1px solid #dbdbdb;
-    min-height: 450px;
     margin-right: 20px;
     box-sizing: border-box;
     padding: 60px 4.5%;
@@ -160,6 +158,7 @@ onUnmounted(() => {
         font-weight: 500;
         text-decoration: underline;
         cursor: pointer;
+        font-family: 'Oswald-Regular';
       }
     }
   }
@@ -167,7 +166,7 @@ onUnmounted(() => {
   &-right {
     flex: 1;
     background-color: #202448;
-    min-height: 450px;
+    // min-height: 450px;
     box-sizing: border-box;
     padding: 110px 4.5% 60px;
     color: #ffffff;

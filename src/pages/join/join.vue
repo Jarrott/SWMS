@@ -4,7 +4,7 @@
       <div class="title">YOUR JOURNEY STARTS HERE</div>
       <div class="little-title">Memberships starting at $99</div>
       <div class="opera-box flex">
-        <div class="join-box flex justify-between">
+        <div class="join-box flex justify-between" ref="scrollContainer" @click="handleScroll">
           <span>JOIN NOW</span>
           <div class="iconfont icon-jiantou-you"></div>
         </div>
@@ -12,8 +12,105 @@
     </div>
 
     <div class="works">
-      <div class="member-title">SELECT YOUR MEMBERSHIP</div>
-      <div class="row-box flex justify-between">
+      <div class="member-title" >SELECT YOUR MEMBERSHIP</div>
+
+      <div class="have-selected-box" v-if="data.currentSelectItem">
+        
+        <div class="tab-title flex">
+          <div class="bottle" :class="{'active': data.currentSelectItem==='bottle'}" @click="changeTab('bottle')">Bottle</div>
+          <div :class="{'active2': data.currentSelectItem==='kit'}" @click="changeTab('kit')">tasting kit</div>
+        </div>
+        <div class="select-main-content" v-if="data.currentSelectItem==='bottle'">
+          <div class="intro">one year Membership + Bottle</div>
+          <div class="list-box">
+            <div class="row-item"
+              v-for="(goodsItem, index) in data.goodsListData" :key="index">
+
+                <div class="img-box" @click.stop="handleJumpDetails(goodsItem.id)">
+                  <img class="goods-icon" :src="goodsItem.img" alt="" />
+                </div>
+                <div class="info-box">
+                  <div class="text1">{{ goodsItem.no }}</div>
+                  <div class="title bottom-title">{{ goodsItem.title }}</div>
+                  <div class="btn-box flex">
+                    <div class="btn btn1 flex translate-btn"
+                    :style="[goodsItem.hovered ? `background: ${goodsItem.color};border:1px solid ${goodsItem.color};color:#fff;`: `border:1px solid ${goodsItem.color};color: ${goodsItem.color};background:#fff;`]"
+                    @mouseover="goodsItem.hovered = true"
+                    @mouseleave="goodsItem.hovered = false" @click.stop="handleJumpName('join')">
+                      <span>JOIN</span>
+                      <span class="iconfont icon-xiangyou" ></span>
+                    </div>
+                    <div class="btn btn2 flex translate-btn"
+                    :style="[goodsItem.hovered1 ? `background: ${goodsItem.color};border:1px solid ${goodsItem.color};color:#fff;` : `border:1px solid ${goodsItem.color};color: ${goodsItem.color};background:#fff;`]"
+                    @mouseover="goodsItem.hovered1 = true"
+                    @mouseleave="goodsItem.hovered1 = false"
+                    @click.stop="handleJumpDetails(goodsItem.id)">
+                      <span>GIFT</span>
+                      <span class="iconfont icon-xiangyou"></span>
+                    </div>
+                  </div>
+                  <div class="info-item flavour">
+                    <span class="label">FLAVOUR:</span>
+                    <span class="value">{{ goodsItem.flavour }}</span>
+                  </div>
+                  <div class="info-item">
+                    <span class="label">AGE:</span>
+                    <span class="value">{{ goodsItem.age }}</span>
+                  </div>
+                  <div class="info-item">
+                    <span class="label">REGION:</span>
+                    <span class="value">{{ goodsItem.region }}</span>
+                  </div>
+                  <div class="info-item">
+                    <span class="label">CASK:</span>
+                    <span class="value">{{ goodsItem.cask }}</span>
+                  </div>
+                  <div class="info-item">
+                    <span class="label">ABV:</span>
+                    <span class="value">{{ goodsItem.abv }}</span>
+                  </div>
+                  <div class="info-item">
+                    <span class="label">BOTTLES PRODUCED:</span>
+                    <span class="value">{{ goodsItem.produced }}</span>
+                  </div>
+                </div>
+                <div class="tips">{{ goodsItem.tip }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="select-kit-main-content flex" v-else>
+          <div class="kit-left-box">
+            <div class="intro">one year Membership + tasting kit</div>
+            <div class="price">$195</div>
+            <div class="introduction">The perfect introduction to the rare and exciting world ofsingle cask whisky! Experience the diverse spectrum ofunique styles, regions and flavours that Scotch whiskyhas to offer in a beautiful presentation box.</div>
+            <div class="includes">Each Tasting Kit includes:</div>
+            <div class="includes-item">
+              <span class="dot"></span>Three 1ooml single cask whisky bottles
+            </div>
+            <div class="includes-item">
+              <span class="dot"></span>Two SMWS tasting snifter glasses
+            </div>
+            <div class="includes-item">
+              <span class="dot"></span>One glass SMWS water pitcher
+            </div>
+            <div class="includes-item">
+              <span class="dot"></span>One SMWS notebook for note taking
+            </div>
+            <div class="includes-item">
+              <span class="dot"></span>One SMWS water dropper
+            </div>
+            <div class="tasting-kit-btn-box flex">
+              <div class="btn translate-btn" @click="handleBack">JOIN <div class="iconfont icon-jiantou-you"></div></div>
+              <div class="btn translate-btn" @click="handleJump('gift', '2')">GIFT <div class="iconfont icon-jiantou-you"></div></div>
+            </div>
+          </div>
+          <div class="kit-right-box">
+            <img src="@/assets/images/join/icon6.png" alt="">
+          </div>
+        </div>
+      </div>
+
+      <div class="row-box flex justify-between" v-else>
         <div class="item">
           <div class="item-left">
             <img class="item-icon" src="@/assets/images/join/icon2.png" alt="" />
@@ -22,7 +119,7 @@
             <div class="item-name">JOIN</div>
             <div class="item-type">BOTTLE</div>
             <div class="money">Starting at $170</div>
-            <div class="select">SELECT <div class="iconfont icon-jiantou-you"></div></div>
+            <div class="select translate-btn" @click="handleJump('', '3')">SELECT <div class="iconfont icon-jiantou-you"></div></div>
           </div>
         </div>
         <div class="item">
@@ -33,15 +130,15 @@
             <div class="item-name">MEMBERSHIP + TASTING KIT</div>
             <div class="item-type kit-type">TASTING KIT</div>
             <div class="money">$195</div>
-            <div class="select kit">SELECT <div class="iconfont icon-jiantou-you"></div></div>
+            <div class="select kit translate-btn" @click="handleJump('', '4')">SELECT <div class="iconfont icon-jiantou-you"></div></div>
           </div>
         </div>
       </div>
 
       <div class="row-box only-row-box">
-        <div class="middle-box">OR</div>
+        <div class="middle-box" v-if="!data.currentSelectItem">OR</div>
 
-        <div class="item only-item-box">
+        <div class="item only-item-box" ref="targetElement">
           <div class="only-row-top">
             <div class="item-left">
               <img class="item-icon only-icon" src="@/assets/images/home/vector.png" alt="" />
@@ -53,8 +150,8 @@
             </div>
           </div>
           <div class="only-btn-box flex">
-            <div class="select only-select">JOIN <div class="iconfont icon-jiantou-you"></div></div>
-            <div class="select only-select">GIFT <div class="iconfont icon-jiantou-you"></div></div>
+            <div class="select only-select translate-btn" @click="handleJump('join', '1')">JOIN <div class="iconfont icon-jiantou-you"></div></div>
+            <div class="select only-select translate-btn" @click="handleJump('gift', '2')">GIFT <div class="iconfont icon-jiantou-you"></div></div>
           </div>
         </div>
       </div>
@@ -105,9 +202,12 @@ import swiperImg1 from "@/assets/images/join/icon4.png";
 import swiperImg2 from "@/assets/images/join/icon5.png";
 import swiperImg3 from "@/assets/images/home/swiper_3.png";
 
+import { JOIN_GOODS_LIST } from "@/utils/simulatedData";
+
 
 const proxy: any = getCurrentInstance()?.proxy;
 
+const router = useRouter();
 const route = useRoute();
 const interSwiper = ref();
 
@@ -155,7 +255,12 @@ const data = reactive({
     },
   ] as any,
   lifeIndex: 0,
+  currentSelectItem: '', // 当前的选项
+  goodsListData: JOIN_GOODS_LIST,
 });
+
+const targetElement = ref();
+const scrollContainer = ref();
 
 const onLifeSlideChange = (swiper: any) => {
   if (swiper.realIndex === data.lifeData.length - 1) {
@@ -165,13 +270,38 @@ const onLifeSlideChange = (swiper: any) => {
   }
 }
 
-watch(
-  () => route,
-  () => {
-    
-  },
-  { immediate: true, deep: true }
-);
+const handleScroll = () => {
+  // 获取目标元素的相对位置（相对于滚动容器）
+  const rect: any = targetElement.value?.getBoundingClientRect().top;
+  console.log('rect', rect);
+  
+  (window as any).scrollTo({ top: rect, behavior: 'smooth' })
+};
+
+const handleJump = (name?: string, type: string) => {
+  if (type === '1') {
+    router.push({name})
+  } else if (type ==='2') {
+    // 这里要把此条数据存储到store，更新购物车
+    router.push({name})
+  } else if (type === '3') {
+    data.currentSelectItem = 'bottle'
+  } else if (type === '4') {
+    data.currentSelectItem = 'kit'
+  }
+};
+
+// tab切换
+const changeTab = (name: string) => {
+  data.currentSelectItem = name;
+};
+
+const handleBack = () => {
+  
+  data.currentSelectItem = '';
+  (window as any).scrollTo({ top: 0, behavior: 'smooth' });
+
+}
 </script>
 
 <style lang="scss" scoped>
@@ -265,7 +395,7 @@ watch(
       }
 
       .icon-jiantou-you {
-        font-size: 24px;
+        font-size: 28px;
       }
     }
   }
@@ -413,8 +543,13 @@ watch(
           justify-content: space-between;
           cursor: pointer;
 
+          &:hover {
+            background: #74AF3E;
+            color: #fff;
+          }
+
           .icon-jiantou-you {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: 700;
           }
         }
@@ -422,12 +557,20 @@ watch(
         .kit {
           border: 4px solid #202448;
           color: #202448;
+          &:hover {
+            background: #202448;
+            color: #fff;
+          }
         }
 
         .only-select {
           border: 4px solid #71307C;
           color: #71307C;
           margin-right: 10px;
+          &:hover {
+            background: #71307C;
+            color: #fff;
+          }
         }
       }
     }
@@ -449,6 +592,306 @@ watch(
       .only-btn-box {
         margin-left: 34.4%;
       }
+    }
+
+    .have-selected-box {
+      color: #202448;
+      padding: 0 176px;
+      box-sizing: border-box;
+      width: 100%;
+      margin-top: 60px;
+
+      .select-main-content {
+        border: 1px solid #74AF3E;
+      }
+
+      .select-kit-main-content {
+        border: 1px solid #202448;
+        box-sizing: border-box;
+        padding: 0 44px 80px;
+
+        .kit-left-box {
+          color: #2E2E2D;
+          font-family: 'Georgia-Regular';
+          font-size: 24px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 38px;
+          letter-spacing: 0.48px;
+
+          .price {
+            color: #202448;
+            font-family: 'Oswald-Medium';
+            font-size: 54px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+            letter-spacing: 0.25px;
+            text-transform: uppercase;
+          }
+
+          .intro {
+            margin-left: 0;
+          }
+
+          .introduction {
+            margin-top: 24px;
+            margin-bottom: 32px;
+          }
+
+          .includes-item {
+            .dot {
+              width: 4px;
+              height: 4px;
+              background-color: #2E2E2D;
+              border-right: 50%;
+              display: inline-block;
+              vertical-align: middle;
+              margin: 0 12px;
+            }
+          }
+
+          .btn {
+            width: 230px;
+            height: 64px;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            line-height: 64px;
+            border: 4px solid #202448;
+            color: #202448;
+            font-family: Oswald;
+            font-size: 23px;
+            font-style: normal;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            padding: 0 20px;
+            margin-right: 20px;
+            margin-top: 42px;
+            cursor: pointer;
+
+            &:hover {
+              background-color: #202448;
+              color: #fff;
+            }
+
+            .icon-jiantou-you {
+              font-size: 28px;
+            }
+          }
+        }
+
+        .kit-right-box {
+          img {
+            width: 654px;
+            height: 654px;
+            margin-top: 84px;
+          }
+        }
+      }
+
+      .tab-title {
+        text-align: center;
+        font-family: 'Oswald-Medium';
+        font-size: 44px;
+        font-style: normal;
+        font-weight: 500;
+        letter-spacing: 0.54px;
+        text-transform: uppercase;
+
+        div {
+          background: #F2F2F2;
+          flex: 1;
+          height: 90px;
+          line-height: 90px;
+          border: 10px solid #fff;
+          border-top: none;
+          box-sizing: border-box;
+          cursor: pointer;
+          transition: padding .4s ease,font-size .4s ease,line-height .4s ease,color .4s ease,background .4s ease;
+        }
+
+        .bottle {
+          color: #74AF3E;
+          margin-right: 10px;
+          
+        }
+
+        .bottle::before {
+            color: red;
+          }
+
+        .active {
+          color: #74AF3E;
+          font-size: 54px;
+          background-color: #fff;
+          border: 1px solid #81ac6d;
+          border-bottom: 0;
+          position: relative;
+          top: 2px;
+          transition: opacity .4s ease;
+        }
+
+        .active2 {
+          color: #202448;
+          font-size: 54px;
+          background-color: #fff;
+          border: 1px solid #202448;
+          border-bottom: 0;
+          position: relative;
+          top: 2px;
+          transition: opacity .4s ease;
+        }
+      }
+
+      .intro {
+        font-family: 'Oswald-Medium';
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 18px; /* 90% */
+        letter-spacing: 0.36px;
+        text-transform: uppercase;
+        margin: 70px 0 36px 44px;
+      }
+
+      .list-box {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        padding: 0 44px;
+        box-sizing: border-box;
+
+        .row-item {
+          background: #FFF;
+          display: inline-flex;
+          width: calc(33.33% - 28px);
+          box-sizing: border-box;
+          flex-direction: column;
+          color: #2E2E2D;
+          font-family: 'Oswald-Regular';
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: 21px;
+          letter-spacing: 1.4px;
+          margin-right: 40px;
+          margin-bottom: 120px;
+          position: relative;
+
+          &:nth-child(3n) {
+            margin-right: 0;
+          }
+
+          .img-box {
+            width: 100%;
+            text-align: center;
+            cursor: pointer;
+            background: #F2F2F2;
+            box-sizing: border-box;
+            padding: 40px 45px;
+          }
+
+          .goods-icon {
+            height: 460px;
+            position: relative;
+          }
+
+          .text1 {
+            font-size: 20px;
+            margin-top: 24px;
+            margin-bottom: 6px;
+          }
+
+          .title {
+            color: #202448;
+            font-family: 'Oswald-Medium';
+            font-size: 25px;
+            font-weight: 500;
+            line-height: 25px;
+            letter-spacing: 0.25px;
+            margin: 6px 0 16px;
+            text-transform: uppercase;
+          }
+
+          .btn-box {
+            width: 100%;
+            margin-bottom: 30px;
+
+            .btn {
+              flex: 1;
+              border: 1px solid #2E2E2D;
+              height: 64px;
+              line-height: 64px;
+              font-size: 23px;
+              font-weight: 700;
+              font-family: 'Oswald-Medium';
+              justify-content: space-between;
+              box-sizing: border-box;
+              padding: 0 20px;
+              cursor: pointer;
+
+              .icon-xiangyou {
+                font-size: 28px;
+              }
+
+              &.btn1 {
+                margin-right: 22px;
+              }
+
+            }
+          }
+
+          .info-item {
+            font-family: 'Oswald-Medium';
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 30px;
+            letter-spacing: 0.4px;
+            border-bottom: 1px solid #707070;
+            box-sizing: border-box;
+            padding-bottom: 6px;
+            padding-top: 6px;
+            display: flex;
+            align-items: center;
+
+            &.flavour {
+              border-top: 1px solid #707070;
+            }
+
+            .label {
+              width: 180px;
+              display: inline-block;
+            }
+
+            .value {
+              font-family: 'Oswald-Regular';
+              font-weight: 400;
+              margin-left: 30px;
+              white-space: nowrap;
+              // width: calc(100% - 230px);
+              display: inline-block;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
+          }
+
+          .tips {
+            color: #2E2E2D;
+            font-family: 'Georgia-Italic';
+            font-size: 24px;
+            font-style: italic;
+            font-weight: 400;
+            line-height: 38px;
+            letter-spacing: 0.48px;
+            margin-top: 36px;
+          }
+        }
+      }
+
     }
   }
 

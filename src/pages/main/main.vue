@@ -8,26 +8,35 @@
             <img src="@/assets/images/home/logo.png" alt="" />
           </div>
            <div class="right-wrap">
-            <div class="box-wrap">
+            <div class="box-wrap" v-for="(item, index) in headerTypeList" :key="index" @click="handleTopClick(item, index)">
+              <span>{{ item.name }}</span>
+              <img class="icon-arrow" :class="{'arrowTransform': currentTypeIndex==index&&item.active}" src="@/assets/images/home/arrow-down.png" alt="" />
+            </div>
+
+            <!-- <div class="box-wrap" @click="handleTopClick('shop')">
               <span>SHOP</span>
-              <img class="icon-arrow" src="@/assets/images/home/arrow-down.png" alt="" />
+              <img class="icon-arrow" :class="{'arrowTransform': currentTypeName=='shop'}" src="@/assets/images/home/arrow-down.png" alt="" />
             </div>
-            <div class="box-wrap">
+            <div class="box-wrap" @click="handleTopClick('events')">
               <span>EVENTS</span>
-              <img class="icon-arrow" src="@/assets/images/home/arrow-down.png" alt="" />
+              <img class="icon-arrow" :class="{'arrowTransform': currentTypeName=='events'}" src="@/assets/images/home/arrow-down.png" alt="" />
             </div>
-            <div class="box-wrap">
+            <div class="box-wrap" @click="handleTopClick('about')">
               <span>ABOUT</span>
-              <img class="icon-arrow" src="@/assets/images/home/arrow-down.png" alt="" />
-            </div>
+              <img class="icon-arrow" :class="{'arrowTransform': currentTypeName=='about'}" src="@/assets/images/home/arrow-down.png" alt="" />
+            </div> -->
             <div class="join-box" @click="handleJumpUrl('join')">JOIN</div>
             <img class="right-icon" src="@/assets/images/home/search.png" alt="" @click="handleSearch" />
             <img class="right-icon" src="@/assets/images/home/user.png" alt="" @click="handleLogin" />
-            <img class="right-icon" src="@/assets/images/home/shopping-cart.png" alt="" />
+            <div class="cart-box">
+              <img class="right-icon" src="@/assets/images/home/shopping-cart.png" alt="" @click="handleJumpUrl('cart')" />
+              <div class="badge">3</div>
+            </div>
           </div>
           <div class="header-bottom-line"></div>
         </div>
 
+        <!-- 搜索 start -->
         <el-drawer
           v-model="drawerDialog"
           :with-header="false"
@@ -38,23 +47,35 @@
           <el-input v-model="searchValue" class="search-input" placeholder="Search the collection"></el-input>
           <div class="iconfont icon-chahao" @click="drawerDialog=false"></div>
         </el-drawer>
+        <!-- 搜索 end -->
+
       </el-header>
 
-      <el-main class="main-wrap" id="mainContent" @scroll.passive="handleScroll($event)" @mousewheel="mouseWheel">
-        <div>
-          <el-scrollbar class="page-scrollbar">
-            <div class="page-wrap">
-              <router-view
-                ref="RouterView"
-                :key="$route.fullPath"
-              ></router-view>
-            </div>
-          </el-scrollbar>
-        </div>
-      </el-main>
-      <el-footer>
-        <Footer></Footer>
-      </el-footer>
+      <template v-if="isShowRouter">
+        <el-main class="main-wrap" @scroll.passive="handleScroll($event)" @mousewheel="mouseWheel">
+          <div>
+            <el-scrollbar class="page-scrollbar">
+              <div class="page-wrap">
+                <router-view
+                  ref="RouterView"
+                  :key="$route.fullPath"
+                ></router-view>
+              </div>
+            </el-scrollbar>
+          </div>
+        </el-main>
+        <el-footer>
+          <Footer></Footer>
+        </el-footer>
+      </template>
+
+      <template v-else>
+        <el-main class="top-main-wrap">
+          <div class="top-dialog-content">
+            <TopDialog :currentTypeName="currentTypeName" @change-elMain="changeElMain"></TopDialog>
+          </div>
+        </el-main>
+      </template>
 
     </el-container>
   </div>
@@ -62,44 +83,37 @@
 
 <script lang="ts" setup>
 import Footer from './footer.vue';
+import TopDialog from '@/components/topDialog/topDialog.vue';
 
 const headerHidden: boolean = ref(true);
-
-// 缓存组件正则，需要缓存的组件，务必配置 name 字段，且满足该正则
-let cacheRE = ref(/^.*List$/);
-// 清除缓存，一级菜单切换时使用
-const clearKeepAliveCache = () => {
-  cacheRE.value = new RegExp(`^${Date.now()}$`);
-  nextTick(() => {
-    cacheRE.value = /^.*List$/;
-  });
-  isUpdate.value = false;
-};
-let isUpdate = ref(false);
-const clearCache = () => {
-  isUpdate.value = true;
-};
-const getUpdate = (callback: any) => {
-  callback(isUpdate.value);
-};
-const setUpdate = (flag: boolean) => {
-  isUpdate.value = flag;
-};
 
 const route = useRoute();
 const router = useRouter();
 
 const drawerDialog = ref(false);
+const notFooterUrlList: any = ref(['shop', 'event', 'about']);
+const isShowRouter = ref(true); // 是否显示路由容器
+const currentTypeName = ref(''); // shop、events、about
+const currentTypeIndex = ref(-1);
+const headerTypeList = ref([
+  {
+    name: 'shop',
+    active: false,
+  },
+  {
+    name: 'events',
+    active: false,
+  },
+  {
+    name: 'about',
+    active: false,
+  }
+])
+
+// console.log('>>>>>>', window.location);
+
 
 const searchValue = ref('');
-
-watch(() => route,(newValue) => {
-    nextTick(() => {
-      clearKeepAliveCache();
-    })
-  },
-  { immediate: true, deep: true }
-);
 
 // 头部搜索项
 const handleSearch = () => {
@@ -119,6 +133,28 @@ const handleJumpUrl = (urlName: string) => {
     name: urlName,
   });
 };
+
+const handleTopClick = (item: any, index: number) => {
+  currentTypeName.value = item.name;
+  item.active = !item.active;
+  currentTypeIndex.value = index;
+
+  isShowRouter.value = !isShowRouter.value;
+
+  
+};
+
+const changeElMain = (item: any) => {
+  isShowRouter.value = true;
+  if (item.urlQueryParams) {
+    router.push({
+      name: item.urlName,
+      query: { type: item.urlQueryParams },
+    });
+  } else {
+    router.push({ name: item.urlName });
+  }
+}
 
 const mouseWheel = (e?: any) => {
   if (e.wheelDelta || e.detail) {

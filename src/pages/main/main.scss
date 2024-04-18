@@ -104,6 +104,11 @@
     .icon-arrow {
       width: 10px;
       height: 6px;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .arrowTransform {
+      transform: rotate(180deg);
     }
 
     .right-icon {
@@ -111,6 +116,30 @@
       height: 32px;
       margin-left: 26px;
       cursor: pointer;
+    }
+
+    .cart-box {
+      position: relative;
+
+      .right-icon {
+        vertical-align: middle;
+      }
+
+      .badge {
+        position: absolute;
+        right: -12px;
+        top: -10px;
+        background-color: #5b7c4e;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        color: #fff;
+        font-size: 13px;
+        font-weight: 400;
+        font-family: 'Oswald-Regular';
+        text-align: center;
+        line-height: 25px;
+      }
     }
   }
 }
@@ -135,4 +164,10 @@
     background-color: #fff;
     border-radius: 12px;
   }
+}
+
+.top-dialog-content {
+  height: calc(100vh - 120PX);
+  background-color: #fff;
+  overflow: hidden;
 }

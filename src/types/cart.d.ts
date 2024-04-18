@@ -1,0 +1,18 @@
+export type Cart = {
+  img?: any,
+  no?: string,
+  title?: string,
+  type?: number,
+  flavour?: string,
+  age?: string,
+  region?: string,
+  cask?: string,
+  price1?: string,
+  price2?: string,
+  color?: string,
+  isNew?: boolean,
+  hovered?: boolean,
+  hovered1?: boolean,
+  page?: string,
+  id?: number,
+};

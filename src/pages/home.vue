@@ -7,7 +7,7 @@
           <div class="text-bg"></div>
           <div class="text">NEWEST RELEASES</div>
         </div>
-        <div class="more-text" @click="handleJumpUrl('goodsList')">SEE MORE <div class="iconfont icon-jiantou-you"></div></div>
+        <div class="more-text" @click="handleJumpUrl('goodsList')">SEE MORE <div class="iconfont icon-xiangyou"></div></div>
       </div>
       <GoodsListSwiper></GoodsListSwiper>
     </div>
@@ -18,11 +18,11 @@
       <div class="opera-box flex">
         <div class="join-box flex justify-between">
           <span>JOIN</span>
-          <div class="iconfont icon-jiantou-you"></div>
+          <div class="iconfont icon-xiangyou"></div>
         </div>
         <div class="join-box flex justify-between">
           <span>GIFT</span>
-          <div class="iconfont icon-jiantou-you"></div>
+          <div class="iconfont icon-xiangyou"></div>
         </div>
       </div>
     </div>
@@ -122,7 +122,7 @@
               <div class="life-info-left">
                 <div class="life-title">{{ item.title }}</div>
                 <div class="desc">{{ item.desc }}</div>
-                <div class="about-info flex">{{ item.link }} <div class="iconfont icon-jiantou-you"></div></div>
+                <div class="about-info flex">{{ item.link }} <div class="iconfont icon-xiangyou"></div></div>
               </div>
               <div class="life-info-right">
                 <img :src="item.pic" alt="" />
@@ -154,7 +154,7 @@
               <div class="life-info-left">
                 <div class="life-title">{{ item.title }}</div>
                 <div class="desc">{{ item.desc }}</div>
-                <div class="about-info member-about-box flex">{{ item.link }} <div class="iconfont icon-jiantou-you"></div></div>
+                <div class="about-info member-about-box flex">{{ item.link }} <div class="iconfont icon-xiangyou"></div></div>
               </div>
               <div class="life-info-right">
                 <img :src="item.pic" alt="" />
@@ -451,8 +451,8 @@ const handleJumpUrl = (pathName: string) => {
         font-family: 'Oswald-Medium';
         cursor: pointer;
 
-        .icon-jiantou-you {
-          font-size: 18px;
+        .icon-xiangyou {
+          font-size: 28px;
           margin-left: 12px;
         }
       }
@@ -567,7 +567,7 @@ const handleJumpUrl = (pathName: string) => {
         color: #2E2E2D;
       }
 
-      .icon-jiantou-you {
+      .icon-xiangyou {
         font-size: 24px;
       }
     }
@@ -785,7 +785,7 @@ const handleJumpUrl = (pathName: string) => {
           cursor: pointer;
           font-family: 'Oswald-Medium';
 
-          .icon-jiantou-you {
+          .icon-xiangyou {
             margin-left: 8px;
             color: #000;
           }

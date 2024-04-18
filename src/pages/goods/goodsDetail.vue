@@ -22,8 +22,8 @@
         <div class="no">{{ data.goodsDetailsInfo.no }}</div>
         <div class="title" :style="`color: ${data.goodsDetailsInfo.color};`">{{ data.goodsDetailsInfo.title }}</div>
         <div class="price flex">
-          <span :style="`color: ${data.goodsDetailsInfo.color};`">{{ data.goodsDetailsInfo.price1 }}</span>
-          <span class="unit">{{ data.goodsDetailsInfo.price2 }}</span>
+          <span :style="`color: ${data.goodsDetailsInfo.color};`">${{ data.goodsDetailsInfo.price1 }}</span>
+          <span class="unit">{{ data.goodsDetailsInfo.price2 }} left</span>
         </div>
 
 
@@ -37,15 +37,17 @@
             :style="[data.goodsDetailsInfo.hovered ? `border:1px solid ${data.goodsDetailsInfo.color};color: ${data.goodsDetailsInfo.color};background:#fff;`: `background: ${data.goodsDetailsInfo.color};border:1px solid ${data.goodsDetailsInfo.color};color:#fff;`]"
             @mouseover="data.goodsDetailsInfo.hovered = true"
             @mouseleave="data.goodsDetailsInfo.hovered = false"
-            @click.stop="handleJump">
-              <span>JOIN TODAY</span>
+            @click.stop="handleAddCart">
+              <!-- <span>JOIN TODAY</span> -->
+              <span>ADD TO CART</span>
               <span class="iconfont icon-xiangyou" ></span>
             </div>
 
             <div class="btn btn2 flex"
             :style="[data.goodsDetailsInfo.hovered1 ? `background: ${data.goodsDetailsInfo.color};border:1px solid ${data.goodsDetailsInfo.color};color:#fff;` : `border:1px solid ${data.goodsDetailsInfo.color};color: ${data.goodsDetailsInfo.color};background:#fff;`]"
             @mouseover="data.goodsDetailsInfo.hovered1 = true"
-            @mouseleave="data.goodsDetailsInfo.hovered1 = false">
+            @mouseleave="data.goodsDetailsInfo.hovered1 = false"
+            @click.stop="handleLogin">
               <span>SIGN IN</span>
               <span class="iconfont icon-xiangyou"></span>
             </div>
@@ -114,36 +116,11 @@
 </template>
 <script lang="ts" setup>
 import GoodsListSwiper from "@/components/goods-list-swpier/goodsListSwpier.vue";
-
-import goods_2 from "@/assets/images/goods/goods_2.png";
-import goods_3 from "@/assets/images/goods/goods_3.png";
-import goods_4 from "@/assets/images/goods/goods_4.png";
-import goods_5 from "@/assets/images/goods/goods_5.png";
-import goods_6 from "@/assets/images/goods/goods_6.png";
-import goods_7 from "@/assets/images/goods/goods_7.png";
-import goods_8 from "@/assets/images/goods/goods_8.png";
-import goods_9 from "@/assets/images/goods/goods_9.png";
-import goods_10 from "@/assets/images/goods/goods_10.png";
-import goods_11 from "@/assets/images/goods/goods_11.png";
-import goods_12 from "@/assets/images/goods/goods_12.png";
-import goods_13 from "@/assets/images/goods/goods_13.png";
-import goods_14 from "@/assets/images/goods/goods_14.png";
-import goods_15 from "@/assets/images/goods/goods_15.png";
-import goods_16 from "@/assets/images/goods/goods_16.png";
-import goods_17 from "@/assets/images/goods/goods_17.png";
-
-import goods_icon_5 from "@/assets/images/goods/goods_icon_5.png";
-import goods_icon_8 from "@/assets/images/goods/goods_icon_8.png";
-import goods_icon_9 from "@/assets/images/goods/goods_icon_9.png";
-import goods_icon_10 from "@/assets/images/goods/goods_icon_10.png";
-import goods_icon_11 from "@/assets/images/goods/goods_icon_11.png";
-import goods_icon_12 from "@/assets/images/goods/goods_icon_12.png";
-import goods_icon_13 from "@/assets/images/goods/goods_icon_13.png";
-import goods_icon_16 from "@/assets/images/goods/goods_icon_16.png";
-import goods_icon_17 from "@/assets/images/goods/goods_icon_17.png";
-
-import goods_sign_13 from "@/assets/images/goods/goods_sign_13.png";
-import goods_sign_17 from "@/assets/images/goods/goods_sign_17.png";
+import { GOOD_LIST } from "@/utils/simulatedData";
+import {cartGoodsStore} from '@/store/cart';
+const cartStore = cartGoodsStore();
+import {useUserStore} from '@/store/user';
+const useStore = useUserStore();
 
 const router = useRouter();
 const route = useRoute();
@@ -156,304 +133,32 @@ const data = reactive({
   tagsList: ['Old & dignified', 'Oily & coastal', 'Deep rich & dried fruits'] as any,
   express: 16,
   drawerFilter: false,
-  goodsListData: [
-    {
-      img: '',
-      no: 'GIFT',
-      title: 'GIFT MEMBERSHIP',
-      type: 1,
-      color: '#2E2E2D',
-      hovered: false,
-      hovered1: false,
-      id: 1,
-    },
-    {
-      img: '',
-      no: 'GIFT',
-      title: 'GIFT CARD',
-      type: 1,
-      color: '#2E2E2D',
-      hovered: false,
-      hovered1: false,
-      id: 2,
-    },
-    {
-      img: goods_2,
-      no: 'CASK NO. 4.294',
-      title: 'AN AURA OF RESPECTABILITY',
-      type: 2,
-      flavour: 'Lightly Peated',
-      age: '18 years',
-      region: 'Highland, Island',
-      cask: 'First Fill Pedro Ximenez barrique STR',
-      price1: '$325',
-      price2: '41 left',
-      color: '#BDD78D',
-      hovered: false,
-      hovered1: false,
-      id: 3,
-    },
-    {
-      img: goods_3,
-      no: 'CASK NO. 4.303',
-      title: 'A nocturne sipper',
-      type: 2,
-      flavour: 'Oily & Coastal',
-      age: '16 years',
-      region: 'Highland, Island',
-      cask: 'First Fill Pedro Ximenez barrique STR',
-      price1: '$250',
-      price2: '56 left',
-      color: '#276B9A',
-      isNew: true,
-      hovered: false,
-      hovered1: false,
-      id: 4,
-    },
-    {
-      img: goods_4,
-      no: 'CASK NO. 6.69',
-      title: 'Tyrant, show thy face!',
-      type: 2,
-      flavour: 'Spicy & Sweet',
-      age: '10 years',
-      region: 'Highland Southern',
-      cask: 'Second-fill Sherry butt',
-      price1: '$125',
-      price2: '58 left',
-      color: '#71307C',
-      hovered: false,
-      hovered1: false,
-      id: 5,
-    },
-    {
-      img: goods_5,
-      no: 'CASK NO. 9.291',
-      title: 'Roll on a happy hay bale',
-      type: 2,
-      flavour: 'Oily & Coastal',
-      age: '20 years',
-      region: 'Speyside Spey',
-      cask: 'First-fill barrel',
-      price1: '$290',
-      price2: '36 left',
-      color: '#AC599E',
-      isNew: true,
-      isRightIcon: goods_icon_5,
-      hovered: false,
-      hovered1: false,
-      id: 6,
-    },
-    {
-      img: goods_6,
-      no: 'CASK NO. 12.80',
-      title: 'Heaven in a leather hammock',
-      type: 2,
-      flavour: 'Spicy & Dry',
-      age: '34 years',
-      region: 'Speyside, Lossie',
-      cask: 'First-fill Spanish oak Pedro Ximenez butt',
-      price1: '$1,195',
-      price2: '13 left',
-      color: '#F8AE53',
-      hovered: false,
-      hovered1: false,
-      id: 7,
-    },
-    {
-      img: goods_7,
-      no: 'CASK NO. 6.69',
-      title: 'The rose garden',
-      type: 2,
-      flavour: 'Spicy & Sweet',
-      age: '19 years',
-      region: 'Highland Eastern',
-      cask: 'First-fill barrel',
-      price1: '$240',
-      price2: '40 left',
-      color: '#71307C',
-      hovered: false,
-      hovered1: false,
-      id: 8,
-    },
-    {
-      img: goods_8,
-      no: 'CASK NO. 35.331',
-      title: 'Ultra hoggie',
-      type: 2,
-      flavour: 'Spicy & Sweet',
-      age: '27 years',
-      region: 'Speyside, Lossie',
-      cask: 'First-fill toasted oak hogshead',
-      price1: '$445',
-      price2: '27 left',
-      color: '#BC3434',
-      isRightIcon: goods_icon_8,
-      hovered: false,
-      hovered1: false,
-      id: 9,
-    },
-    {
-      img: goods_9,
-      no: 'CASK NO. 53.430',
-      title: "Doesn't hold back",
-      type: 2,
-      flavour: 'Peated',
-      age: '10 years',
-      region: 'Islay',
-      cask: 'Refill hogshead',
-      price1: '$150',
-      price2: '78 left',
-      color: '#74AF3E',
-      isNew: true,
-      isRightIcon: goods_icon_9,
-      hovered: false,
-      hovered1: false,
-      id: 10,
-    },
-    {
-      img: goods_10,
-      no: 'CASK NO. 146.2',
-      title: "Join the great tumult",
-      type: 2,
-      flavour: 'Spicy & Sweet',
-      age: '6 years',
-      region: 'England',
-      cask: 'First-fill barrique, shaved/toasted/re-charred',
-      price1: '$145',
-      price2: '44 left',
-      color: '#71307C',
-      isRightIcon: goods_icon_10,
-      hovered: false,
-      hovered1: false,
-      id: 11,
-    },
-    {
-      img: goods_11,
-      no: 'CASK NO. G8.27',
-      title: "Looks good in leather",
-      type: 2,
-      flavour: 'Spicy & Dry',
-      age: '32 years',
-      region: 'Lowland',
-      cask: 'First-fill barrel',
-      price1: '$295',
-      price2: '31 left',
-      color: '#F8AE53',
-      isNew: true,
-      isRightIcon: goods_icon_11,
-      hovered: false,
-      hovered1: false,
-      id: 12,
-    },
-    {
-      img: goods_12,
-      no: 'CASK NO. 41.176',
-      title: "Baristaliscious",
-      type: 2,
-      flavour: 'Juicy Oak & Vanilla',
-      age: '17 years',
-      region: 'Speyside Spey',
-      cask: 'First-fill Chinkapin oak barrel, HTMC',
-      price1: '$185',
-      price2: '4 left',
-      color: '#60A8D3',
-      isRightIcon: goods_icon_12,
-      hovered: false,
-      hovered1: false,
-      id: 13,
-    },
-    {
-      img: goods_13,
-      no: 'CASK NO. 44.145',
-      title: "Pilgrimage to El Rocio",
-      type: 2,
-      flavour: 'Deep Rich & Dried Fruits',
-      age: '13 years',
-      region: 'Speyside Spey',
-      cask: 'First-fill American oak Pedro Ximenez hogshead',
-      price1: '$155',
-      price2: '14 left',
-      color: '#E6782A',
-      isRightIcon: goods_icon_13,
-      isSignIcon: goods_sign_13,
-      hovered: false,
-      hovered1: false,
-      id: 14,
-    },
-    {
-      img: goods_14,
-      no: 'BUNDLE',
-      title: "March into Spring!",
-      type: 3,
-      flavour: "Deep Rich & Dried Fruits,Juicy Oak & Vanilla,Spicy & Sweet",
-      age: '8 years, 10 years, 16 years',
-      region: 'Speyside, Highland, Speyside',
-      cask: 'First-fill barrel, Second-fill Sherry butt, First-fill Chinkapin oak barrel HTMC',
-      desc: 'Our March into Spring! bundle is sure to stoke some cask-strength conversation with a trio of tantalizing malts, each representing a unique flavour profile in indyllic fashion. Kick off the season right with this first-class flight!',
-      price1: '$375',
-      price2: '16 left',
-      color: '#2E2E2D',
-      isNew: true,
-      hovered: false,
-      hovered1: false,
-      id: 15,
-    },
-    {
-      img: goods_15,
-      no: 'BUNDLE',
-      title: "Embrace the Extraordinary",
-      type: 3,
-      desc: 'Embrace the extraordinary when discovering these unique Society casks from the Speyside and Highlands! This selection provides a rare opportunity to learn about the nuances between varied oak protocols.',
-      price1: '$645',
-      price2: '14 left',
-      color: '#2E2E2D',
-      hovered: false,
-      hovered1: false,
-      id: 16,
-    },
-    {
-      img: goods_16,
-      no: 'BUNDLE',
-      title: "International Women’s Day Duo",
-      type: 3,
-      desc: 'Celebrate International Women’s Day with two extraordinary casks chosen by an all-female tasting panel! In celebration of last year’s International Women’s Day, this tasting panel of exceptional palates carefully selected a handful of different casks for this year’s celebration. Today, a remarkable duo of 20-year-old malts is ready for your collection!',
-      price1: '$560',
-      price2: '36 left',
-      color: '#2E2E2D',
-      isNew: true,
-      isRightIcon: goods_icon_16,
-      hovered: false,
-      hovered1: false,
-      id: 17,
-    },
-    {
-      img: goods_17,
-      no: 'CASK NO. B7.13',
-      title: "C’est si bon!",
-      type: 2,
-      flavour: 'Bourbon',
-      age: '4 years',
-      region: 'Indiana, USA',
-      cask: 'First-fill American oak #4 charred barrel, #2 charred heads',
-      price1: '$65',
-      price2: '32 left',
-      color: '#202448',
-      isRightIcon: goods_icon_17,
-      isSignIcon: goods_sign_17,
-      hovered: false,
-      hovered1: false,
-      id: 18,
-    }
-  ] as any,
+  goodsListData: GOOD_LIST as any,
   goodsDetailsInfo: {} as any,
 });
 
-const handleJump = () => {
-  router.push({
-    name: 'cart'
+// 加入购物车
+const handleAddCart = () => {
+  // let num = cartStore.cartNum;
+  // let token = useStore.userInfo
+  // console.log(token, 'token');
+  // console.log(num, 'num');
+  cartStore.$patch((state: any) => {
+    state.carGoodsList.push(data.goodsDetailsInfo);
   })
+  
+  setTimeout(() => {
+    router.push({
+      name: 'cart'
+    })
+  }, 500);
 };
+
+const handleLogin = () => {
+  router.push({
+    name: 'login'
+  })
+}
 
 if (id) {
   data.goodsListData.map((item: any) => {
@@ -601,7 +306,7 @@ onUnmounted(() => {
           letter-spacing: 0.4px;
 
           .icon-xiangyou {
-            font-size: 22px;
+            font-size: 28px;
           }
 
           &.btn1 {
@@ -615,14 +320,14 @@ onUnmounted(() => {
             color: #2E2E2D;
 
             .icon-xiangyou {
-              transform: translate(5px);
+              transform: translate(10px);
               transition: all .2s linear;
             }
           }
 
           &.btn2:hover {
             .icon-xiangyou {
-              transform: translate(5px);
+              transform: translate(10px);
               transition: all .2s linear;
             }
           }
@@ -678,6 +383,7 @@ onUnmounted(() => {
       letter-spacing: 0.54px;
       text-transform: uppercase;
       margin-bottom: 36px;
+      font-family: 'Oswald-Medium';
     }
   }
 

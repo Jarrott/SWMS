@@ -31,6 +31,7 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "pinia": "^2.1.7",
+    "pinia-plugin-persistedstate": "^3.2.1",
     "postcss-pxtorem": "^6.1.0",
     "prettier": "^2.8.4",
     "quill-image-drop-module": "^1.0.3",
@@ -43,6 +44,7 @@
     "unplugin-vue-components": "^0.24.1",
     "vite-plugin-vue-setup-extend": "^0.4.0",
     "vue": "^3.2.45",
+    "vue-i18n": "9",
     "vue-router": "^4.1.6",
     "vuex": "^4.1.0"
   },

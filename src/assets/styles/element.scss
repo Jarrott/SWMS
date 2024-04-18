@@ -10,46 +10,6 @@
   --el-text-color-regular: #2E2E2D;
 }
 
-// 按钮-primary
-.el-button--primary {
-  --el-button-bg-color: var(--el-color-primary);
-  --el-button-hover-bg-color: var(--el-color-primary);
-
-  &:hover {
-    --el-button-hover-bg-color: var(--el-color-primary-light-3);
-  }
-
-  &.is-plain {
-    --el-button-bg-color: #fff;
-    --el-button-hover-bg-color: #fff;
-    --el-button-hover-text-color: var(--el-color-primary);
-    --el-button-active-text-color: var(--el-color-primary);
-    --el-button-border-color: var(--el-color-primary);
-    --el-button-active-bg-color: #d4dbf5; //40%
-
-    &:hover {
-      --el-button-hover-bg-color: #e5e8f6; //20%
-    }
-  }
-}
-
-// 按钮-default
-.el-button--default {
-  --el-button-border-color: #c4c4c4;
-  --el-button-text-color: #000;
-  --el-button-active-text-color: #000;
-  --el-button-hover-text-color: #000;
-
-  --el-button-bg-color: #fff;
-  --el-button-hover-bg-color: #fff;
-  --el-button-active-bg-color: rgba(91, 115, 255, 0.4);
-  --el-button-hover-border-color: #c4c4c4;
-
-  &:hover {
-    --el-button-hover-bg-color: rgba(91, 115, 255, 0.2);
-  }
-}
-
 .el-button {
   --el-border-radius-base: 8px;
 }
@@ -251,3 +211,123 @@ i.el-icon.el-input__prefix-icon {
   justify-content: space-between;
 }
 
+.translate-btn:hover {
+
+  .icon-xiangyou {
+    font-size: 28px;
+    transform: translate(10px);
+    transition: all .2s linear;
+  }
+
+  .icon-jiantou-you {
+    font-size: 28px;
+    transform: translate(10px);
+    transition: all .2s linear;
+  }
+}
+
+.arrowTransform {
+  transform: rotate(180deg);
+}
+
+.el-overlay {
+  background-color: rgba(0,0,0,0);
+}
+
+.custom-select-box {
+  margin-left: 10px;
+  width: 140px;
+
+  .el-select__placeholder.is-transparent {
+    color: #2E2E2D;
+  }
+
+  .el-select__wrapper {
+    border: 0!important;
+    box-shadow: 0 0 0 0 #f7f7f7 inset;
+    background-color: #F7F7F7;
+    font-size: 18px;
+    transition: transform 0.5s ease-in;
+    &.is-hovering {
+      box-shadow: 0 0 0 0 #f7f7f7 inset;
+      border: 0;
+    }
+  }
+
+}
+
+.custom-select {
+
+  .el-select {
+    height: 45px;
+  }
+}
+
+.el-select__wrapper.is-focused {
+  box-shadow: 0 0 0 0 !important;
+}
+
+.el-popper__arrow {
+  display: none;
+}
+
+.el-select__suffix {
+  .el-select__caret {
+    color: #2E2E2D;
+    font-size: 20px;
+    width: 0px;
+    height: 0px;
+    border: 7px solid transparent;
+    border-top-color: #2E2E2D;
+    position: relative;
+    top: 2px;
+  }
+}
+
+.el-input__inner::placeholder {
+  color: rgba(0, 0, 0, 0.25) !important; /* 更改为需要的颜色 */
+  font-size: 16px;
+  font-family: 'Oswald-Regular';
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.32px;
+}
+
+
+.el-select__placeholder.is-transparent {
+  color: rgba(0, 0, 0, 0.25); /* 修改为您想要的颜色 */
+  font-size: 16px;
+  font-family: 'Oswald-Regular';
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.32px;
+}
+
+.el-select__wrapper.is-focused {
+  box-shadow: none;;
+}
+
+.el-select-dropdown {
+  background: #6a6968;
+
+  .el-select-dropdown__item {
+    color: #fff;
+    font-size: 16px;
+  }
+
+  .el-select-dropdown__item.is-hovering {
+    background: rgba(32, 153, 163, 0.6);
+  }
+}
+
+.el-input-number:focus-visible {
+  border: 0!important;
+  box-shadow: 0 0 0 0!important;
+}
+
+.el-input__inner:focus {
+  border: 0!important;
+  box-shadow: 0 0 0 0!important;
+}

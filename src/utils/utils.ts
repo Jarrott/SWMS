@@ -35,31 +35,8 @@ export const getTime = (time: any) => {
 // 清除缓存，并退出
 export const exit = () => {
   window.localStorage.removeItem('token');
-  window.localStorage.removeItem('accountId');
-  window.localStorage.removeItem('channelId');
-  window.localStorage.removeItem('orgId');
-  window.localStorage.removeItem('orgName');
 
-  document.location = document.location.origin;
-}
-
-// 按钮权限
-export const bntAuth = (key: string | any) => {
-  if (!key) {
-    return true;
-  }
-  const btns = window.localStorage.getItem('btnList');
-  const channelId = window.localStorage.getItem('channelId');
-  if (channelId) {
-    if (btns?.includes(key)) {
-      return true
-    }
-  } else {
-    if (btns?.includes(`0:${key}`)) {
-      return true
-    }
-  }
-  return false;
+  (document as any).location = document.location.origin;
 }
 
 // 根据日期区间，返回周期

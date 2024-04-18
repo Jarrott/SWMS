@@ -17,17 +17,18 @@
           <div class="table-row" v-for="(item, index) in data.cartList" :key="index">
             <div class="product-box">
               <div class="imgbox">
-                <img v-if="index===0" src="@/assets/images/home/vector.png" alt="" />
-                <img v-else src="@/assets/images/goods/goods_2.png" alt="" />
+                <!-- <img v-if="index===0" src="@/assets/images/home/vector.png" alt="" />
+                <img v-else src="@/assets/images/goods/goods_2.png" alt="" /> -->
+                <img :src="item.img" alt="" />
               </div>
-              <div class="title">{{ item.productName }}</div>
+              <div class="title">{{ item.title }}</div>
             </div>
-            <div class="price-box">${{ item.productPrice }}</div>
+            <div class="price-box">${{ item.price1 }}</div>
             <div class="quantity-box">
               <el-input-number v-model="item.productNum" @change="handleChange(item)" :min="1" :max="9999"></el-input-number>
             </div>
             <div class="total-box">
-              <div>${{ (item.productTotal).toFixed(2) }}</div>
+              <div>${{ (Number(item.price1) * item.productNum).toFixed(2) }}</div>
               <div class="remove" @click.stop="handleRemoveItem(item, index)">remove</div>
             </div>
           </div>
@@ -52,13 +53,20 @@
               your order has been completed.
             </div>
             <div class="agree">
-              <el-checkbox v-model="data.checked" style="transform: scale(1.5);margin-right: 6px;"></el-checkbox>
+              <el-checkbox v-model="data.checked"></el-checkbox>
               <span>I AGREE WITH THE </span>
               <span class="text">TERMS AND CONDITIONS.</span>
             </div>
-            <div class="btn" :class="data.checked?'':'disabled-btn'" @click="handleUpdate">
-              <span>update cart</span>
-              <span class="iconfont icon-xiangyou"></span>
+            <div class="error-text" v-if="data.isError">You must agree to the terms and conditions.</div>
+            <div class="flex">
+              <!-- <div class="btn updateBtn" :class="data.checked?'':'disabled-btn'" @click="handleUpdate">
+                <span>update cart</span>
+                <span class="iconfont icon-xiangyou"></span>
+              </div> -->
+              <div class="btn flex translate-btn" @click="handleCheckout">
+                <span>checkout</span>
+                <span class="iconfont icon-xiangyou"></span>
+              </div>
             </div>
           </div>
         </div>
@@ -85,6 +93,8 @@
 
 <script lang="ts" setup>
 import GoodsListSwiper from "@/components/goods-list-swpier/goodsListSwpier.vue";
+import {cartGoodsStore} from '@/store/cart';
+const cartStore = cartGoodsStore();
 
 const router = useRouter();
 
@@ -108,13 +118,15 @@ const data = reactive({
       id: 2,
     }
   ] as any,
+  isError: false,
 });
 
+// 合计
 const actualMoneyComputed = computed(() => {
   let total: any = 0;
   if (data.cartList.length > 0) {
     data.cartList.map((item: any) => {
-      total += item.productTotal;
+      total += Number(item.price1) * item.productNum;
     });
     return total.toFixed(2);
   }
@@ -123,7 +135,7 @@ const actualMoneyComputed = computed(() => {
 
 // 商品价格计算
 const handleChange = (item: any) => {
-  item.productTotal = (item.productNum * item.productPrice);
+  // item.price1 = (item.productNum * Number(item.price1));
 };
 
 // 单个商品删除
@@ -133,7 +145,10 @@ const handleRemoveItem = (item: any, index: number) => {
     cancelButtonText: 'cancel',
     type: 'warning',
   }).then(() => {
-    data.cartList.splice(index, 1);
+    // data.cartList.splice(index, 1);
+    cartStore.$patch((state: any) => {
+      state.carGoodsList = [];
+    })
   });
 
 };
@@ -145,11 +160,31 @@ const handleUpdate = () => {
   }
 };
 
+const handleCheckout = () => {
+  if (!data.checked) {
+    data.isError = true;
+    return
+  }
+  data.isError = false;
+  if (window.localStorage.getItem('token')) {
+    // 进行订单流程
+  } else {
+    router.push({
+      name: 'checkout', // createAccount
+    });
+  }
+}
+
 const handleJump = () => {
   router.push({
     name: 'goodsList',
   });
-}
+};
+onMounted(() => {
+  data.cartList = cartStore.carGoodsList;
+  console.log('data.cartList', data.cartList);
+  
+});
 </script>
 
 <style lang="scss" scoped>
@@ -160,6 +195,30 @@ const handleJump = () => {
   font-weight: 500;
   font-family: 'Oswald-Medium';
   color: #2E2E2D;
+
+  :deep(.el-checkbox__input) {
+    margin-right: 6px;
+
+    .el-checkbox__inner {
+      width: 16px;
+      height: 16px;
+      border: 1px solid #000;
+      font-size: 89px;
+    }
+
+    &.is-checked .el-checkbox__inner {
+      background-color: #F7F7F7;
+    }
+
+    .el-checkbox__inner::after {
+      border: 3px solid #000;
+      border-left: 0;
+      border-top: 0;
+      left: 5px;
+      top: 2px;
+    }
+
+  }
 
   .cart-box {
     padding: 120px 174px 0;
@@ -348,6 +407,17 @@ const handleJump = () => {
           }
         }
 
+        .error-text {
+          text-align: right;
+          color: #F00;
+          font-family: 'Georgia-Regular';
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+          letter-spacing: 0.4px;
+        }
+
         .btn {
           width: 218px;
           height: 64px;
@@ -362,10 +432,20 @@ const handleJump = () => {
           position: relative;
           right: -124px;
           cursor: pointer;
+          justify-content: center;
+
+          &:hover {
+            background-color: #000;
+            color: #fff;
+          }
 
           .icon-xiangyou {
             font-size: 26px;
             margin-left: 4px;
+          }
+
+          &.updateBtn {
+            margin-right: 12px;
           }
         }
 
