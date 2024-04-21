@@ -16,11 +16,11 @@
       <div class="title">EXPERIENCE WHISKY IN ITS PUREST FORM</div>
       <div class="little-title">Membership starting at $99</div>
       <div class="opera-box flex">
-        <div class="join-box flex justify-between">
+        <div class="join-box flex justify-between" @click="handleJumpUrl('join')">
           <span>JOIN</span>
           <div class="iconfont icon-xiangyou"></div>
         </div>
-        <div class="join-box flex justify-between">
+        <div class="join-box flex justify-between" @click="handleJumpUrl('join')">
           <span>GIFT</span>
           <div class="iconfont icon-xiangyou"></div>
         </div>
@@ -175,17 +175,7 @@ import {Swiper, SwiperSlide} from 'swiper/vue'; // swiper所需组件
 import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
-
 import GoodsListSwiper from "@/components/goods-list-swpier/goodsListSwpier.vue";
-
-import goodsImg0 from "@/assets/images/home/goods.png";
-import goodsImg1 from "@/assets/images/home/goods_3.png";
-import goodsImg2 from "@/assets/images/home/goods_4.png";
-import goodsImg3 from "@/assets/images/home/goods_9.png";
-import goodsImg4 from "@/assets/images/home/goods_5.png";
-import goodsImg5 from "@/assets/images/home/goods_10.png";
-import goodsImg6 from "@/assets/images/home/goods_7.png";
-import goodsImg7 from "@/assets/images/home/goods_6.png";
 import swiperImg1 from "@/assets/images/home/swiper_2.png";
 import swiperImg2 from "@/assets/images/home/swiper_1.png";
 import swiperImg3 from "@/assets/images/home/swiper_3.png";
@@ -198,10 +188,6 @@ const route = useRoute();
 const router = useRouter();
 const interSwiper = ref();
 
-// const navigation = ref({
-//   nextEl: ".swiper-button-next",
-//   prevEl: ".swiper-button-prev",
-// });
 const navigationLife = ref({
   nextEl: ".swiper-button-next",
   prevEl: ".swiper-button-prev",
@@ -223,67 +209,7 @@ const onSlideChange = (swiper: any) => {
   console.log(swiper.activeIndex)
 };
 
-
-
 const data = reactive({
-  goodsList: [
-    {
-      img: goodsImg0,
-      title: 'BUNDLE',
-      desc: 'EMBRACE THE EXTRAORDINARY',
-      type: 0,
-      color: '#c2c2c2',
-    },
-    {
-      img: goodsImg1,
-      title: 'CASK NO. 19.94',
-      desc: 'THE ROSE CARDEN',
-      type: 1,
-      color: '#71307C',
-    },
-    {
-      img: goodsImg2,
-      title: 'CASK NO. 23.81',
-      desc: 'FATBERG AHEAD!',
-      type: 2,
-      color: '#276B9A',
-    },
-    {
-      img: goodsImg3,
-      title: 'CASK NO. 39.271',
-      desc: 'A CASK OF PLENTY',
-      type: 3,
-      color: '#60A8D3',
-    },
-    {
-      img: goodsImg4,
-      title: 'CASK NO. 44.145',
-      desc: 'PILGRIMAGE TO ELROCIO',
-      type: 4,
-      color: '#E6782A',
-    },
-    {
-      img: goodsImg5,
-      title: 'CASK NO. 53.458',
-      desc: 'TRULY A GEM',
-      type: 5,
-      color: '#74AF3E',
-    },
-    {
-      img: goodsImg6,
-      title: 'CASK NO. 55.82',
-      desc: 'THE GATHERING STILLNESS',
-      type: 6,
-      color: '#F8AE53',
-    },
-    {
-      img: goodsImg7,
-      title: 'CASK NO. 60.32',
-      desc: 'SPRINGTIME EXTRAVAGANZA',
-      type: 7,
-      color: '#D298C4',
-    }
-  ] as any,
   carouselTotal: 8,
   hover: false,
   swiperIndex: null,
@@ -342,6 +268,7 @@ const data = reactive({
   ] as any,
 });
 
+// 轮播图切换
 const onLifeSlideChange = (swiper: any) => {
   if (swiper.realIndex === data.lifeData.length - 1) {
     data.lifeIndex = 0;
@@ -358,6 +285,7 @@ watch(
   { immediate: true, deep: true }
 );
 
+// 路由跳转
 const handleJumpUrl = (pathName: string) => {
   router.push({
     name: pathName

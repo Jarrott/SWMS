@@ -1,39 +1,46 @@
 <template>
   <div class="common-layout">
     <el-container>
-
       <el-header class="header-wrap">
-        <div class="header-wrap-main" :class="headerHidden ? 'show-header' : 'hidden-header'">
-          <div class="logo-box" @click="handleJumpUrl('home')">
-            <img src="@/assets/images/home/logo.png" alt="" />
+        <div class="header-wrap-main" :class="headerHidden ? 'show-header' : (userStore.userInfo.userId ? 'hidden-header2' : 'hidden-header')">
+          <!-- 登录之后展示用户信息 start-->
+          <div class="user-box" v-if="userStore && userStore.userInfo && userStore.userInfo.userId">
+            <div class="user-left flex">
+              <img class="user-img" src="@/assets/images/header/user.png" alt="" />
+              <span class="user-name">{{ userStore.userInfo?.email }}</span>
+              <span class="user-id">JP{{ userStore.userInfo?.userId }}</span>
+              <span class="user-period">Validity Period：2024/06/30</span>
+            </div>
+            <div class="user-right flex" @click="handleLogout">
+              <img class="user-img" src="@/assets/images/header/logout.png" alt="" />
+              <span class="log-out">LOG OUT</span>
+            </div>
           </div>
-           <div class="right-wrap">
-            <div class="box-wrap" v-for="(item, index) in headerTypeList" :key="index" @click="handleTopClick(item, index)">
-              <span>{{ item.name }}</span>
-              <img class="icon-arrow" :class="{'arrowTransform': currentTypeIndex==index&&item.active}" src="@/assets/images/home/arrow-down.png" alt="" />
-            </div>
+          <!-- 登录之后展示用户信息 end-->
 
-            <!-- <div class="box-wrap" @click="handleTopClick('shop')">
-              <span>SHOP</span>
-              <img class="icon-arrow" :class="{'arrowTransform': currentTypeName=='shop'}" src="@/assets/images/home/arrow-down.png" alt="" />
+          <!-- 头部信息 start-->
+          <div class="main-content">
+            <div class="logo-box" @click="handleJumpUrl('home')">
+              <img src="@/assets/images/home/logo.png" alt="" />
             </div>
-            <div class="box-wrap" @click="handleTopClick('events')">
-              <span>EVENTS</span>
-              <img class="icon-arrow" :class="{'arrowTransform': currentTypeName=='events'}" src="@/assets/images/home/arrow-down.png" alt="" />
-            </div>
-            <div class="box-wrap" @click="handleTopClick('about')">
-              <span>ABOUT</span>
-              <img class="icon-arrow" :class="{'arrowTransform': currentTypeName=='about'}" src="@/assets/images/home/arrow-down.png" alt="" />
-            </div> -->
-            <div class="join-box" @click="handleJumpUrl('join')">JOIN</div>
-            <img class="right-icon" src="@/assets/images/home/search.png" alt="" @click="handleSearch" />
-            <img class="right-icon" src="@/assets/images/home/user.png" alt="" @click="handleLogin" />
-            <div class="cart-box">
-              <img class="right-icon" src="@/assets/images/home/shopping-cart.png" alt="" @click="handleJumpUrl('cart')" />
-              <div class="badge">3</div>
+            <div class="right-wrap">
+              <div class="box-wrap"
+                v-for="(item, index) in headerTypeList" :key="index"
+                @click="handleTopClick(item, index)">
+                <span>{{ item.name }}</span>
+                <img class="icon-arrow" :class="{'arrowTransform': item.active}" src="@/assets/images/home/arrow-down.png" alt="" />
+              </div>
+              <div class="join-box" @click="handleJumpUrl('join')">JOIN</div>
+              <img class="right-icon" src="@/assets/images/home/search.png" alt="" @click="handleSearch" />
+              <img class="right-icon" src="@/assets/images/home/user.png" alt="" @click="handleLogin" />
+              <div class="cart-box">
+                <img class="right-icon" src="@/assets/images/home/shopping-cart.png" alt="" @click="handleJumpUrl('cart')" />
+                <div class="badge" v-if="badgeNum>0">{{ badgeNum }}</div>
+              </div>
             </div>
           </div>
           <div class="header-bottom-line"></div>
+          <!-- 头部信息 end-->
         </div>
 
         <!-- 搜索 start -->
@@ -52,7 +59,9 @@
       </el-header>
 
       <template v-if="isShowRouter">
-        <el-main class="main-wrap" @scroll.passive="handleScroll($event)" @mousewheel="mouseWheel">
+        <el-main class="main-wrap"
+        :class="(userStore.userInfo.userId&&!headerHidden)?'main-wrap2':(!userStore.userInfo.userId&&headerHidden ? 'main-wrap3': '')"
+        @scroll.passive="handleScroll($event)" @mousewheel="mouseWheel">
           <div>
             <el-scrollbar class="page-scrollbar">
               <div class="page-wrap">
@@ -71,7 +80,7 @@
 
       <template v-else>
         <el-main class="top-main-wrap">
-          <div class="top-dialog-content">
+          <div class="top-dialog-content" :class="(userStore.userInfo.userId) ? 'top-dialog-content2':''">
             <TopDialog :currentTypeName="currentTypeName" @change-elMain="changeElMain"></TopDialog>
           </div>
         </el-main>
@@ -84,6 +93,10 @@
 <script lang="ts" setup>
 import Footer from './footer.vue';
 import TopDialog from '@/components/topDialog/topDialog.vue';
+import {cartGoodsStore} from '@/store/cart';
+import {useUserStore} from '@/store/user';
+const cartStore = cartGoodsStore();
+const userStore = useUserStore();
 
 const headerHidden: boolean = ref(true);
 
@@ -91,10 +104,8 @@ const route = useRoute();
 const router = useRouter();
 
 const drawerDialog = ref(false);
-const notFooterUrlList: any = ref(['shop', 'event', 'about']);
-const isShowRouter = ref(true); // 是否显示路由容器
+const isShowRouter = ref(true); // 是否显示带有footer的路由容器
 const currentTypeName = ref(''); // shop、events、about
-const currentTypeIndex = ref(-1);
 const headerTypeList = ref([
   {
     name: 'shop',
@@ -108,10 +119,8 @@ const headerTypeList = ref([
     name: 'about',
     active: false,
   }
-])
-
-// console.log('>>>>>>', window.location);
-
+]);
+const badgeNum = computed(() => cartStore.getCartNum); // 头部购物车角标
 
 const searchValue = ref('');
 
@@ -122,26 +131,35 @@ const handleSearch = () => {
 
 // 跳转登录
 const handleLogin = () => {
-  router.push({
-    path: '/login',
-  });
+  if (userStore.userInfo.userId) {
+    router.push({
+      path: '/mine',
+    });
+  } else {
+    router.push({
+      path: '/login',
+    });
+  }
 };
 
 // 路由跳转
 const handleJumpUrl = (urlName: string) => {
+  isShowRouter.value = true;
   router.push({
     name: urlName,
   });
 };
 
 const handleTopClick = (item: any, index: number) => {
+  if (currentTypeName.value !== item.name) {
+    headerTypeList.value.map((tb:any) => {
+      tb.active = false;
+      isShowRouter.value = true
+    })
+  }
   currentTypeName.value = item.name;
   item.active = !item.active;
-  currentTypeIndex.value = index;
-
   isShowRouter.value = !isShowRouter.value;
-
-  
 };
 
 const changeElMain = (item: any) => {
@@ -165,6 +183,18 @@ const mouseWheel = (e?: any) => {
       headerHidden.value = false;
     }
   }
+};
+
+// 退出登录
+const handleLogout = () => {
+  ElMessageBox.confirm('Are you sure you want to log out', 'Tip', {
+    confirmButtonText: 'confirm',
+    cancelButtonText: 'cancel',
+    type: 'warning',
+  }).then(() => {
+    userStore.$reset();
+    window.localStorage.removeItem('token');
+  });
 }
 
 onMounted(() => {

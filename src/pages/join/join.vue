@@ -6,13 +6,13 @@
       <div class="opera-box flex">
         <div class="join-box flex justify-between" ref="scrollContainer" @click="handleScroll">
           <span>JOIN NOW</span>
-          <div class="iconfont icon-jiantou-you"></div>
+          <span class="iconfont icon-jiantou-you"></span>
         </div>
       </div>
     </div>
 
     <div class="works">
-      <div class="member-title" >SELECT YOUR MEMBERSHIP</div>
+      <div class="member-title">SELECT YOUR MEMBERSHIP</div>
 
       <div class="have-selected-box" v-if="data.currentSelectItem">
         
@@ -273,9 +273,7 @@ const onLifeSlideChange = (swiper: any) => {
 const handleScroll = () => {
   // 获取目标元素的相对位置（相对于滚动容器）
   const rect: any = targetElement.value?.getBoundingClientRect().top;
-  console.log('rect', rect);
-  
-  (window as any).scrollTo({ top: rect, behavior: 'smooth' })
+  scrollContainer.value.scrollIntoView({ block: 'start', behavior: 'smooth', inline: 'nearest' })
 };
 
 const handleJump = (name?: string, type: string) => {
@@ -297,7 +295,6 @@ const changeTab = (name: string) => {
 };
 
 const handleBack = () => {
-  
   data.currentSelectItem = '';
   (window as any).scrollTo({ top: 0, behavior: 'smooth' });
 
@@ -310,6 +307,7 @@ const handleBack = () => {
   box-sizing: border-box;
   color: #FFF;
   overflow: hidden;
+  height: 100%;
 
   :deep(.swiper-button-prev), :deep(.swiper-button-next) {
     width: 50px;
@@ -389,6 +387,7 @@ const handleBack = () => {
       margin-right: 10px;
       cursor: pointer;
       font-family: 'Oswald-Medium';
+      color: #fff;
 
       &:first-child {
         margin-left: 100px;

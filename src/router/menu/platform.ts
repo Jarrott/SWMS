@@ -176,5 +176,17 @@ export const platform = [
     meta: {
       title: 'mine'
     },
+    children: [
+      {
+        path: '/mine',
+        name: 'mine',
+        component: () => import('@/pages/mine/accountDashboard/accountDashboard.vue')
+      },
+      {
+        path: '/infoEdit',
+        name: 'infoEdit',
+        component: () => import('@/pages/mine/infoEdit/infoEdit.vue')
+      }
+    ]
   },
 ];

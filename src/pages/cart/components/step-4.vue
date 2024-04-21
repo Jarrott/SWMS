@@ -250,12 +250,16 @@ const handleJump = () => {
       &-right {
         .totle-price {
           font-family: 'Oswald-Regular';
-          font-size: 26px;
+          font-size: 16px;
           font-weight: 400;
           line-height: 30px;
           letter-spacing: 1px;
-          text-transform: uppercase;
-          margin-top: 44px;
+          text-transform: capitalize;
+          margin-top: 24px;
+
+          &:first-child {
+            margin-top: 44px;
+          }
 
           .label {
             width: 360px;

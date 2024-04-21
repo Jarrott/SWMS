@@ -38,6 +38,8 @@
 </template>
 
 <script lang="ts" setup>
+import {useUserStore} from '@/store/user';
+const userStore = useUserStore();
 
 const router = useRouter();
 
@@ -65,6 +67,14 @@ const clickLogin = async () => {
   if (data.email && data.password) {
     emailError.value = '';
     passwordError.value = '';
+    let info: any = {
+      userName: data.email,
+      email: data.email,
+      userId: 37,
+      mobile: '18761473652'
+    }
+    // 存储信息
+    userStore.setUserInfo(info);
     window.localStorage.setItem('token', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhY2NvdW50Q29kZSI6ImFkbWluIiwiYWNjb3V');
     router.push({
       name: 'home',

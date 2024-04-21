@@ -4,10 +4,9 @@ import App from './App.vue';
 import router from './router';
 import { store, key } from './store';
 import { createPinia } from 'pinia';
-import persist from 'pinia-plugin-persistedstate';
+import piniaPluginPersist from 'pinia-plugin-persistedstate';
 import 'element-plus/dist/index.css';
 import * as ElementPlusIconsVue from '@element-plus/icons-vue';
-// import zhLang from 'element-plus/lib/locale/lang/zh-cn';
 import zhLang from 'element-plus/es/locale/lang/zh-cn';
 
 zhLang.el.pagination.goto = '跳转';
@@ -24,7 +23,7 @@ import i18n from '@/lang/index'
 
 const pinia = createPinia();
 
-pinia.use(persist);
+pinia.use(piniaPluginPersist);
 
 const app = createApp(App);
 

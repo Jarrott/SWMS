@@ -1,11 +1,9 @@
 <template>
   <div class="checkout-page-wrap">
-
     <div class="time-text" v-if="data.downTime=='over'">
       <div class="empty-text">Shopping Cart is Empty</div>
       <div class="over-text" @click="handleJump">Click here to continue shopping.</div>
     </div>
-
     <template v-else>
       <div class="step-box">
         <el-steps :active="data.active" :align-center="true" finish-status="process">

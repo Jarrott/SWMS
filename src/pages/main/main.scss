@@ -14,15 +14,56 @@
     position: fixed;
     top: 0;
     left: 0;
-    display: flex;
-    align-items: center;
     width: 100%;
-    height: 120px;
+    // height: 120px;
     z-index: 99;
     padding: 0 4.5%;
     box-sizing: border-box;
     background-color: #fff;
     transition: top .3s ease-in-out,left .3s ease-in-out,right .3s ease-in-out,height .2s linear;
+
+    .main-content {
+      display: flex;
+      align-items: center;
+      box-sizing: border-box;
+      height: 120px;
+    }
+  }
+
+  .user-box {
+    padding: 24px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Oswald-Medium';
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.36px;
+    text-transform: capitalize;
+    color: #686868;
+    border-bottom: 1px solid #D4D4D4;
+    box-sizing: border-box;
+
+    .user-img {
+      width: 32px;
+      height: 32px;
+      vertical-align: middle;
+    }
+
+    .user-name, .log-out {
+      margin-left: 6px;
+    }
+
+    .user-id {
+      margin-left: 64px;
+      margin-right: 64px;
+    }
+
+    .user-right {
+      cursor: pointer;
+    }
   }
 
   .header-bottom-line {
@@ -33,16 +74,13 @@
     background: linear-gradient(90deg, #70442F 0%, #FFE9CD 32%, #603622 65%, #C48D71 85%, #EAB497 100%);
   }
 
-  // .show-header {
-  //   top: 0;
-  //   opacity: 1;
-  //   transition: top .3s ease-in-out,left .3s ease-in-out,right .3s ease-in-out,height .2s linear;
-  //   transition: opacity ease-in 1s;
-  // }
-
   .hidden-header {
     top: -120px;
-    // opacity: 0;
+    transition: top .3s ease-in-out,left .3s ease-in-out,right .3s ease-in-out,height .2s linear;
+  }
+
+  .hidden-header2 {
+    top: -200px;
     transition: top .3s ease-in-out,left .3s ease-in-out,right .3s ease-in-out,height .2s linear;
   }
 
@@ -146,14 +184,22 @@
 
 .main-wrap {
   position: relative;
-  padding: 0px 0px 0px 0px;
+  padding: 80px 0px 0px 0px;
   background-color: #fff;
   overflow: hidden;
-  // min-height: 80vh;
+
+  &.main-wrap2 {
+    position: relative;
+    top: -120PX;
+  }
+
+  &.main-wrap3 {
+    padding: 0PX 0px 0px 0px;
+  }
 
   .page-scrollbar {
     width: 100%;
-    height: calc(100vh - 60PX);
+    min-height: calc(100vh - 120PX);
 
     :deep(.el-scrollbar__view) {
       height: auto;
@@ -166,8 +212,16 @@
   }
 }
 
+.top-main-wrap {
+  padding-top: 0;
+}
+
 .top-dialog-content {
   height: calc(100vh - 120PX);
   background-color: #fff;
   overflow: hidden;
+}
+
+.top-dialog-content2 {
+  padding-top: 44PX;
 }

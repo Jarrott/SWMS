@@ -130,7 +130,7 @@ const rules = reactive<FormRules>({
   lastName: [{ required: true, message: 'Last Name is required.', trigger: 'blur' }],
   phone: [{ required: true, message: 'Email is required.', trigger: 'blur' }],
   email: [{ required: true, message: 'Phone is required.', trigger: 'blur' }],
-  BirthMonth: [{ required: true, message: 'First Name is required.', trigger: 'blur' }],
+  BirthMonth: [{ required: true, message: 'BirthMonth is required.', trigger: 'blur' }],
   password: [{ required: true, message: 'Password is required.', trigger: 'blur' }],
   confirmPassword: [{ required: true, message: 'Password Confirmation is required.', trigger: 'blur' }],
   address: [{ required: true, message: 'Address is required.', trigger: 'blur' }],
@@ -234,6 +234,7 @@ const handleCreate = async () => {
         line-height: normal;
         letter-spacing: 0.4px;
         margin-top: 4px;
+        text-transform: capitalize;
       }
 
       .birth-box {

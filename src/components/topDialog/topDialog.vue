@@ -88,6 +88,157 @@ const data = reactive({
 });
 
 
+watch(
+  () => prop.currentTypeName,
+  (newValue) => {
+    nextTick(() => {
+      if (prop.currentTypeName === 'shop') {
+        data.leftTitleList = [
+          {
+            title: 'ALL PRODUCTS',
+            urlName: 'goodsList',
+            sign: 'PRODUCTS',
+            color: '#3A6A96',
+            bottomColor: '#345F87',
+          },
+          {
+            title: 'MEMBERSHIPS',
+            urlName: 'join',
+            sign: 'PRODUCTS',
+            color: '#3A6A96'
+          },
+          {
+            title: 'WHISKY',
+            urlName: 'whisky',
+            urlQueryParams: 'whisky',
+            sign: 'PRODUCTS',
+            color: '#3A6A96'
+          },
+          {
+            title: 'GIFT CARD',
+            urlName: 'giftCard',
+            sign: 'PRODUCTS',
+            color: '#3A6A96'
+          },
+          {
+            title: 'BOTTLE OF THE MONTH',
+            urlName: 'bottleMonth',
+            sign: 'PRODUCTS',
+            color: '#3A6A96'
+          }
+        ];
+        data.rightTitleList = [
+          {
+            title: 'NEW RELEASES',
+            urlName: 'collect',
+            sign: 'COLLECTIONS',
+          },
+          {
+            title: 'BUNDLES',
+            urlName: 'bundles',
+            sign: 'COLLECTIONS',
+          },
+          {
+            title: 'VAULTS COLLECTION',
+            urlName: 'vaults',
+            sign: 'COLLECTIONS',
+          },
+          {
+            title: 'SINGLE CASK SPIRITS',
+            urlName: 'single',
+            sign: 'COLLECTIONS',
+          },
+          {
+            title: 'AMERICAN WHISKEY',
+            urlName: 'american',
+            sign: 'COLLECTIONS',
+          }
+        ];
+      } else if (prop.currentTypeName === 'events') {
+        data.leftTitleList = [
+          {
+            title: 'EVENTS',
+            urlName: 'events',
+            sign: 'EVENTS',
+            color: '#ac599e',
+            bottomColor: '#9c518f',
+          },
+          {
+            title: 'LIVE STREAMS',
+            urlName: 'liveStreams',
+            sign: 'EVENTS',
+            color: '#ac599e'
+          },
+          {
+            title: 'PRIVATE TASTINGS',
+            urlName: 'privateTastings',
+            sign: 'EVENTS',
+            color: '#ac599e'
+          },
+        ];
+        data.rightTitleList = [];
+      } else if (prop.currentTypeName === 'about') {
+        data.leftTitleList = [
+          {
+            title: 'VENUES',
+            urlName: 'venues',
+            sign: 'For Members',
+            color: '#2e2e2d',
+            bottomColor: '#2a2a28',
+          },
+          {
+            title: 'UNFILTERED MAGAZINE',
+            urlName: 'unfilteredMagazine',
+            sign: 'For Members',
+            color: '#2e2e2d'
+          },
+          {
+            title: 'WHERE TO FIND US',
+            urlName: 'whereToFindUs',
+            urlQueryParams: 'whisky',
+            color: '#2e2e2d'
+          },
+          {
+            title: 'TASTING NOTE ARCHIVE',
+            urlName: 'tastingNote',
+            sign: 'For Members',
+            color: '#2e2e2d'
+          },
+        ];
+        data.rightTitleList = [
+          {
+            title: 'HISTORY',
+            urlName: 'hhistory',
+            sign: 'ABOUT',
+          },
+          {
+            title: 'OUR WHISKY',
+            urlName: 'ourWhisky',
+            sign: 'ABOUT',
+          },
+          {
+            title: 'NEWS',
+            urlName: 'news',
+            sign: 'ABOUT',
+          },
+          {
+            title: 'FLAVOUR PROFILES',
+            urlName: 'flavourProfiles',
+            sign: 'ABOUT',
+          },
+          {
+            title: 'CONTACT',
+            urlName: 'contact',
+            sign: 'ABOUT',
+          }
+        ];
+      }
+    })
+  },
+  { immediate: true, deep: true }
+);
+
+
 // join
 const handleJumpJoin = (name: string) => {
   router.push({ name });
@@ -99,155 +250,13 @@ const handleJumpPath = (item: any) => {
 };
 
 onMounted(() => {
-  nextTick(() => {
-    if (prop.currentTypeName === 'shop') {
-      data.leftTitleList = [
-        {
-          title: 'ALL PRODUCTS',
-          urlName: 'goodsList',
-          sign: 'PRODUCTS',
-          color: '#3A6A96',
-          bottomColor: '#345F87',
-        },
-        {
-          title: 'MEMBERSHIPS',
-          urlName: 'join',
-          sign: 'PRODUCTS',
-          color: '#3A6A96'
-        },
-        {
-          title: 'WHISKY',
-          urlName: 'whisky',
-          urlQueryParams: 'whisky',
-          sign: 'PRODUCTS',
-          color: '#3A6A96'
-        },
-        {
-          title: 'GIFT CARD',
-          urlName: 'giftCard',
-          sign: 'PRODUCTS',
-          color: '#3A6A96'
-        },
-        {
-          title: 'BOTTLE OF THE MONTH',
-          urlName: 'bottleMonth',
-          sign: 'PRODUCTS',
-          color: '#3A6A96'
-        }
-      ];
-      data.rightTitleList = [
-        {
-          title: 'NEW RELEASES',
-          urlName: 'collect',
-          sign: 'COLLECTIONS',
-        },
-        {
-          title: 'BUNDLES',
-          urlName: 'bundles',
-          sign: 'COLLECTIONS',
-        },
-        {
-          title: 'VAULTS COLLECTION',
-          urlName: 'vaults',
-          sign: 'COLLECTIONS',
-        },
-        {
-          title: 'SINGLE CASK SPIRITS',
-          urlName: 'single',
-          sign: 'COLLECTIONS',
-        },
-        {
-          title: 'AMERICAN WHISKEY',
-          urlName: 'american',
-          sign: 'COLLECTIONS',
-        }
-      ];
-    } else if (prop.currentTypeName === 'events') {
-      data.leftTitleList = [
-        {
-          title: 'EVENTS',
-          urlName: 'events',
-          sign: 'EVENTS',
-          color: '#ac599e',
-          bottomColor: '#9c518f',
-        },
-        {
-          title: 'LIVE STREAMS',
-          urlName: 'liveStreams',
-          sign: 'EVENTS',
-          color: '#ac599e'
-        },
-        {
-          title: 'PRIVATE TASTINGS',
-          urlName: 'privateTastings',
-          sign: 'EVENTS',
-          color: '#ac599e'
-        },
-      ];
-      data.rightTitleList = [];
-    } else if (prop.currentTypeName === 'about') {
-      data.leftTitleList = [
-        {
-          title: 'VENUES',
-          urlName: 'venues',
-          sign: 'For Members',
-          color: '#2e2e2d',
-          bottomColor: '#2a2a28',
-        },
-        {
-          title: 'UNFILTERED MAGAZINE',
-          urlName: 'unfilteredMagazine',
-          sign: 'For Members',
-          color: '#2e2e2d'
-        },
-        {
-          title: 'WHERE TO FIND US',
-          urlName: 'whereToFindUs',
-          urlQueryParams: 'whisky',
-          color: '#2e2e2d'
-        },
-        {
-          title: 'TASTING NOTE ARCHIVE',
-          urlName: 'tastingNote',
-          sign: 'For Members',
-          color: '#2e2e2d'
-        },
-      ];
-      data.rightTitleList = [
-        {
-          title: 'HISTORY',
-          urlName: 'hhistory',
-          sign: 'ABOUT',
-        },
-        {
-          title: 'OUR WHISKY',
-          urlName: 'ourWhisky',
-          sign: 'ABOUT',
-        },
-        {
-          title: 'NEWS',
-          urlName: 'news',
-          sign: 'ABOUT',
-        },
-        {
-          title: 'FLAVOUR PROFILES',
-          urlName: 'flavourProfiles',
-          sign: 'ABOUT',
-        },
-        {
-          title: 'CONTACT',
-          urlName: 'contact',
-          sign: 'ABOUT',
-        }
-      ];
-    }
-  })
+  
 });
 
 </script>
 <style lang="scss" scoped>
 .shop-content-wrap {
-  padding: 0 4.5%;
+  padding: 0 3.5%;
   justify-content: space-between;
   display: flex;
   height: 90%;
@@ -255,12 +264,6 @@ onMounted(() => {
   &-left {
     width: 40%;
     overflow: hidden;
-    // background: url('@/assets/images/home/icon13.png') no-repeat;
-    // background-size: 100%;
-    // background-color: #3A6A96;
-    // transform: scale(1);
-    // transition: transform .4s ease-in-out;
-    // transition: width 1.5s ease,height 1.5s ease,top 1.5s ease,left 1.5s ease;
 
     img {
       width: 100%;

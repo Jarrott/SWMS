@@ -30,6 +30,6 @@ const i18n = createI18n({
   messages: messages as I18nOptions['messages'],
   globalInjection: true // 如果设置true, $t() 函数将注册到全局
 })
-console.log('il8n-----', messages);
+// console.log('il8n-----', messages);
 
 export default i18n

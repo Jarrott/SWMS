@@ -2,13 +2,11 @@
   <div class="shopping-address-box">
     <div class="name">Payment method</div>
     <div class="text">What points do you use?</div>
-    <div class="text">(maximum 165510 points are available).</div>
-    
-
-    <el-checkbox v-model="data.checked">
+    <div class="text tip-text">(maximum 165510 points are available).</div>
+    <div class="flex checkbox">
+      <el-checkbox v-model="data.checked"></el-checkbox>
       <div class="agree-tip">Use points</div>
-    </el-checkbox>
-
+    </div>
     <div class="ship-box">
       <div class="ship-item" v-for="(r, index) in data.radioList" :key="index" @click="handleRadio(index)">
         <div>
@@ -91,12 +89,42 @@ const handleNext = async () => {
 
   .text {
     font-family: 'Oswald-Regular';
-    font-size: 24px;
+    font-size: 16px;
     font-style: normal;
     font-weight: 700;
-    line-height: 30px;
+    line-height: 24px;
     letter-spacing: 0.32px;
     text-transform: uppercase;
+  }
+
+  .tip-text {
+    margin-bottom: 12px;
+  }
+
+  .checkbox {
+    :deep(.el-checkbox__input) {
+      margin-right: 6px;
+
+      .el-checkbox__inner {
+        width: 16px;
+        height: 16px;
+        border: 1px solid #000;
+        font-size: 89px;
+      }
+
+      &.is-checked .el-checkbox__inner {
+        background-color: #F7F7F7;
+      }
+
+      .el-checkbox__inner::after {
+        border: 3px solid #000;
+        border-left: 0;
+        border-top: 0;
+        left: 5px;
+        top: 2px;
+      }
+
+    }
   }
 
   .agree-tip {
@@ -110,7 +138,7 @@ const handleNext = async () => {
   }
 
   .ship-box {
-    border-top: 1px solid#D4D4D4;
+    // border-top: 1px solid#D4D4D4;
     padding-top: 36px;
     font-family: 'Oswald-Regular';
 

@@ -44,6 +44,7 @@
             </div>
 
             <div class="btn btn2 flex"
+            v-if="userStore.userInfo.userId"
             :style="[data.goodsDetailsInfo.hovered1 ? `background: ${data.goodsDetailsInfo.color};border:1px solid ${data.goodsDetailsInfo.color};color:#fff;` : `border:1px solid ${data.goodsDetailsInfo.color};color: ${data.goodsDetailsInfo.color};background:#fff;`]"
             @mouseover="data.goodsDetailsInfo.hovered1 = true"
             @mouseleave="data.goodsDetailsInfo.hovered1 = false"
@@ -120,7 +121,7 @@ import { GOOD_LIST } from "@/utils/simulatedData";
 import {cartGoodsStore} from '@/store/cart';
 const cartStore = cartGoodsStore();
 import {useUserStore} from '@/store/user';
-const useStore = useUserStore();
+const userStore = useUserStore();
 
 const router = useRouter();
 const route = useRoute();
@@ -139,13 +140,15 @@ const data = reactive({
 
 // 加入购物车
 const handleAddCart = () => {
-  // let num = cartStore.cartNum;
-  // let token = useStore.userInfo
-  // console.log(token, 'token');
-  // console.log(num, 'num');
-  cartStore.$patch((state: any) => {
-    state.carGoodsList.push(data.goodsDetailsInfo);
-  })
+  // 判断是否登录
+  if (userStore.userInfo.userId) {
+    router.push({
+      path: '/login',
+    });
+    return
+  }
+  
+  cartStore.setCarGoodsListInfo(data.goodsDetailsInfo);
   
   setTimeout(() => {
     router.push({

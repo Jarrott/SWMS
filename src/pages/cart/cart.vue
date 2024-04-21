@@ -17,15 +17,13 @@
           <div class="table-row" v-for="(item, index) in data.cartList" :key="index">
             <div class="product-box">
               <div class="imgbox">
-                <!-- <img v-if="index===0" src="@/assets/images/home/vector.png" alt="" />
-                <img v-else src="@/assets/images/goods/goods_2.png" alt="" /> -->
                 <img :src="item.img" alt="" />
               </div>
               <div class="title">{{ item.title }}</div>
             </div>
             <div class="price-box">${{ item.price1 }}</div>
             <div class="quantity-box">
-              <el-input-number v-model="item.productNum" @change="handleChange(item)" :min="1" :max="9999"></el-input-number>
+              <el-input-number v-model="item.productNum" @change="handleChange($event, item)" :min="1" :max="9999"></el-input-number>
             </div>
             <div class="total-box">
               <div>${{ (Number(item.price1) * item.productNum).toFixed(2) }}</div>
@@ -110,13 +108,6 @@ const data = reactive({
       productTotal: 99.00,
       id: 1,
     },
-    {
-      productName: 'gift card',
-      productPrice: 150,
-      productNum: 1,
-      productTotal: 99.00,
-      id: 2,
-    }
   ] as any,
   isError: false,
 });
@@ -134,8 +125,9 @@ const actualMoneyComputed = computed(() => {
 });
 
 // 商品价格计算
-const handleChange = (item: any) => {
-  // item.price1 = (item.productNum * Number(item.price1));
+const handleChange = ($event,item: any) => {
+  // console.log('item', item);
+  // console.log('$event', $event);
 };
 
 // 单个商品删除
@@ -145,10 +137,7 @@ const handleRemoveItem = (item: any, index: number) => {
     cancelButtonText: 'cancel',
     type: 'warning',
   }).then(() => {
-    // data.cartList.splice(index, 1);
-    cartStore.$patch((state: any) => {
-      state.carGoodsList = [];
-    })
+    cartStore.deleteCartInfo(item)
   });
 
 };
@@ -168,9 +157,12 @@ const handleCheckout = () => {
   data.isError = false;
   if (window.localStorage.getItem('token')) {
     // 进行订单流程
+    router.push({
+      name: 'checkout',
+    });
   } else {
     router.push({
-      name: 'checkout', // createAccount
+      name: 'createAccount',
     });
   }
 }
@@ -182,8 +174,6 @@ const handleJump = () => {
 };
 onMounted(() => {
   data.cartList = cartStore.carGoodsList;
-  console.log('data.cartList', data.cartList);
-  
 });
 </script>
 
@@ -221,7 +211,7 @@ onMounted(() => {
   }
 
   .cart-box {
-    padding: 120px 174px 0;
+    padding: 60px 174px 0;
 
     .title {
       font-size: 54px;
